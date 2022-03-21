@@ -17,8 +17,8 @@ on:
 env:
     # Use docker.io for Docker Hub if empty
     REGISTRY: ghcr.io
-    # GitHub.repository as <account>/<repo>
-    IMAGE_NAME: ${{ github.repository }}
+    # use DOCKERHUB_USERNAME as the name maybe different from the github username
+    IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
     TAG: latest
 
 jobs:
