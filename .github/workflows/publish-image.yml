@@ -71,12 +71,12 @@ jobs:
                 uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
                 with:
                     context: .
-                    tags: $TAG
+                    tags: ${{ env.TAG }}
                     labels: ${{ steps.meta.outputs.labels }}
 
             -
                 name: retag and push multiplatform images to multiple registries
                 uses: akhilerm/tag-push-action@v2.0.0
                 with:
-                    src: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$TAG
-                    dst: docker.io/${{ env.IMAGE_NAME }}:$TAG
+                    src: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+                    dst: docker.io/${{ env.IMAGE_NAME }}:${{ env.TAG }}
