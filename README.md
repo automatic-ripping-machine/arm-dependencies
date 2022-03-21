@@ -13,7 +13,7 @@
 
 
 ## Overview
-This repo codifies the requirements for building and running arm-dependencies, and provides a docker container that has everything preinstalled. All you need to do is install the ARM source and set up files.
+This repo codifies the requirements for building and running Automatic Ripping Machine, and provides a docker container that has everything preinstalled. All you need to do is install the ARM source and set up files.
 
 The `arm-dependencies`Docker image is rebuilt every night, so you should always get the most up-to-date versions of MakeMKV and Handbrake when you build ARM from this image.
 
