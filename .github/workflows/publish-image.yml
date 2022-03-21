@@ -1,4 +1,4 @@
-name: Publish image
+name: publish-image
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -6,6 +6,7 @@ name: Publish image
 # documentation.
 
 on:
+    # run every day at midnight
     schedule:
         - cron: '0 0 * * *'
     push:

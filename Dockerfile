@@ -104,6 +104,16 @@ COPY --from=arm-py-reqs /opt/venv /opt/venv
 # Final image pushed for use
 FROM deps-ripper as arm-dependencies
 
+# install makemkv and handbrake
+RUN \
+    apt update -y && \
+    apt install -y --no-install-recommends \
+        handbrake-cli \
+        makemkv-bin \
+        makemkv-oss \
+    && \
+    rm -rf /var/lib/apt/lists/*
+
 # reset to default after build
 ENV DEBIAN_FRONTEND=newt
 
