@@ -3,13 +3,13 @@
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/shitwolfymakes/arm-dependencies/publish-image)
 ![Docker](https://img.shields.io/docker/pulls/shitwolfymakes/arm-dependencies.svg)
 
-[![GitHub license](https://img.shields.io/github/license/shitwolfymakes/arm-dependencies?style=plastic)](https://github.com/shitwolfymakes/arm-dependencies/blob/main/LICENSE)
-[![GitHub forks](https://img.shields.io/github/forks/shitwolfymakes/arm-dependencies?style=plastic)](https://github.com/shitwolfymakes/arm-dependencies/network)
-[![GitHub stars](https://img.shields.io/github/stars/shitwolfymakes/arm-dependencies?style=plastic)](https://github.com/shitwolfymakes/arm-dependencies/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/shitwolfymakes/arm-dependencies?style=plastic)](https://github.com/shitwolfymakes/arm-dependencies/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/shitwolfymakes/arm-dependencies?style=plastic)](https://github.com/shitwolfymakes/arm-dependencies/pulls)
+[![GitHub license](https://img.shields.io/github/license/shitwolfymakes/arm-dependencies)](https://github.com/shitwolfymakes/arm-dependencies/blob/main/LICENSE)
+[![GitHub forks](https://img.shields.io/github/forks/shitwolfymakes/arm-dependencies)](https://github.com/shitwolfymakes/arm-dependencies/network)
+[![GitHub stars](https://img.shields.io/github/stars/shitwolfymakes/arm-dependencies)](https://github.com/shitwolfymakes/arm-dependencies/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/shitwolfymakes/arm-dependencies)](https://github.com/shitwolfymakes/arm-dependencies/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/shitwolfymakes/arm-dependencies)](https://github.com/shitwolfymakes/arm-dependencies/pulls)
 
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django?style=plastic)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django)
 
 
 ## Overview
