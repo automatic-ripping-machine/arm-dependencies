@@ -72,7 +72,7 @@ jobs:
                 uses: docker/build-push-action@v2
                 with:
                     context: .
-                    tags: ${{ env.TAG }}
+                    tags: ${{ env.IMAGE_NAME }}:${{ env.TAG }}
                     labels: ${{ steps.meta.outputs.labels }}
 
             -
@@ -80,4 +80,5 @@ jobs:
                 uses: akhilerm/tag-push-action@v2.0.0
                 with:
                     src: docker.io/${{ env.IMAGE_NAME }}:${{ env.TAG }}
-                    dst: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+                    # make sure the github name is correct
+                    dst: ${{ env.REGISTRY }}/${{ github.actor }}/${{ github.event.repository.name }}:${{ env.TAG }}
