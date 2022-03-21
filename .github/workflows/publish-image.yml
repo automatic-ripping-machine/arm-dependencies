@@ -71,6 +71,7 @@ jobs:
                 uses: docker/build-push-action@v2
                 with:
                     context: .
+                    registry: ${{ env.REGISTRY }}
                     tags: ${{ env.TAG }}
                     labels: ${{ steps.meta.outputs.labels }}
 
