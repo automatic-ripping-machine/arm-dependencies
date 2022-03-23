@@ -17,8 +17,9 @@ on:
 env:
     # Use docker.io for Docker Hub if empty
     REGISTRY: ghcr.io
+    REPO_NAME: arm-dependencies
     # use DOCKERHUB_USERNAME as the name maybe different from the github username
-    IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
+    IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.REPO_NAME }}
     TAG: latest
 
 jobs:
@@ -82,4 +83,4 @@ jobs:
                 with:
                     src: docker.io/${{ env.IMAGE_NAME }}:${{ env.TAG }}
                     # make sure the github name is correct
-                    dst: ${{ env.REGISTRY }}/${{ github.actor }}/${{ github.event.repository.name }}:${{ env.TAG }}
+                    dst: ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.REPO_NAME }}:${{ env.TAG }}
