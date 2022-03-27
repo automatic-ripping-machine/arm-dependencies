@@ -19,6 +19,7 @@ RUN \
     apt upgrade -y && \
     apt install -y --no-install-recommends \
         wget \
+        rsyslog \
         build-essential \
         libcurl4-openssl-dev \
         libssl-dev \
@@ -37,6 +38,8 @@ RUN \
         && \
     apt clean -y && \
     rm -rf /var/lib/apt/lists/*
+
+RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
 
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv "${VIRTUAL_ENV}"
