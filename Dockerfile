@@ -3,11 +3,6 @@
 FROM ubuntu:20.04 as base
 ENV DEBIAN_FRONTEND=noninteractive
 
-# override at runtime to match user that ARM runs as local user
-ENV RUN_AS_USER=true
-ENV UID=1000
-ENV GID=1000
-
 RUN mkdir /opt/arm
 WORKDIR /opt/arm
 
