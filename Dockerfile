@@ -22,10 +22,10 @@ RUN \
         libudev-dev \
         udev \
         python3 \
-        python3-venv \
         python3-dev \
         python3-pip \
         python3-wheel \
+        python-psutil \
         python3-pyudev \
         nano \
         vim \
@@ -33,25 +33,6 @@ RUN \
     apt clean -y && \
     rm -rf /var/lib/apt/lists/*
 
-ENV VIRTUAL_ENV=/opt/venv
-RUN python3 -m venv "${VIRTUAL_ENV}"
-ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
-RUN pip3 install --upgrade pip wheel setuptools
-
-###########################################################
-# build pip reqs arm in separate stage
-FROM base as arm-py-reqs
-COPY requirements.txt /requirements.txt
-RUN \
-    apt update -y && \
-    apt install -y --no-install-recommends \
-    && \
-    pip3 install pyudev \
-    && \
-    pip3 install \
-        --ignore-installed \
-        --prefer-binary \
-        -r /requirements.txt
 
 ###########################################################
 # install deps for ripper
@@ -59,7 +40,9 @@ FROM base as deps-ripper
 RUN \
     bash /root/add-ppa.sh ppa:mc3man/focal6 && \
     bash /root/add-ppa.sh ppa:heyarje/makemkv-beta && \
-    bash /root/add-ppa.sh ppa:stebbins/handbrake-releases && \
+    bash /root/add-ppa.sh ppa:stebbins/handbrake-releases
+
+RUN \
     apt update -y && \
     apt install -y --no-install-recommends \
         abcde \
@@ -74,12 +57,19 @@ RUN \
         libavcodec-extra \
         udev \
         libudev-dev \
-        python-psutil \
-        python3-pyudev \
         && \
-        pip3 install --upgrade psutil \
-        && \
-        pip3 install pyudev \
+    apt clean -y && \
+    rm -rf /var/lib/apt/lists/*
+
+# install python reqs
+COPY requirements.txt /requirements.txt
+RUN \
+    apt update -y && \
+    apt install -y --no-install-recommends \
+    && \
+    pip3 install --upgrade pip wheel setuptools psutil pyudev \
+    && \
+    pip3 install --ignore-installed --prefer-binary -r /requirements.txt \
         && \
     apt clean -y && \
     rm -rf /var/lib/apt/lists/*
@@ -92,8 +82,6 @@ RUN \
     apt clean -y && \
     rm -rf /var/lib/apt/lists/*
 
-# copy pip reqs from build stage
-COPY --from=arm-py-reqs /opt/venv /opt/venv
 
 ###########################################################
 # Final image pushed for use
