@@ -8,7 +8,7 @@ WORKDIR /opt/arm
 
 COPY ./scripts/add-ppa.sh /root/add-ppa.sh
 
-# setup Python virtualenv and gnupg/wget for add-ppa.sh
+# setup gnupg/wget for add-ppa.sh
 RUN \
     apt update -y && \
     apt upgrade -y && \
@@ -55,8 +55,6 @@ RUN \
         glyrc \
         default-jre-headless \
         libavcodec-extra \
-        udev \
-        libudev-dev \
         && \
     apt clean -y && \
     rm -rf /var/lib/apt/lists/*
