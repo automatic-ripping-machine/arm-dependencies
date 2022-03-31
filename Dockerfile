@@ -24,9 +24,6 @@ RUN \
         python3 \
         python3-dev \
         python3-pip \
-        python3-wheel \
-        python-psutil \
-        python3-pyudev \
         nano \
         vim \
         && \
@@ -63,12 +60,9 @@ RUN \
 COPY requirements.txt /requirements.txt
 RUN \
     apt update -y && \
-    apt install -y --no-install-recommends \
-    && \
-    pip3 install --upgrade pip wheel setuptools psutil pyudev \
-    && \
-    pip3 install --ignore-installed --prefer-binary -r /requirements.txt \
-        && \
+    apt install -y --no-install-recommends && \
+    pip3 install --upgrade pip wheel setuptools psutil pyudev && \
+    pip3 install --ignore-installed --prefer-binary -r /requirements.txt && \
     apt clean -y && \
     rm -rf /var/lib/apt/lists/*
 
