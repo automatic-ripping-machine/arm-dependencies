@@ -18,7 +18,6 @@ RUN \
         libcurl4-openssl-dev \
         libssl-dev \
         gnupg \
-        gosu \
         libudev-dev \
         udev \
         python3 \
@@ -30,15 +29,29 @@ RUN \
     apt clean -y && \
     rm -rf /var/lib/apt/lists/*
 
-
-###########################################################
-# install deps for ripper
-FROM base as deps-ripper
+# add the PPAs we need, using add-ppa.sh since add-apt-repository is unavailable
 RUN \
     bash /root/add-ppa.sh ppa:mc3man/focal6 && \
     bash /root/add-ppa.sh ppa:heyarje/makemkv-beta && \
     bash /root/add-ppa.sh ppa:stebbins/handbrake-releases
 
+
+###########################################################
+# install deps specific to the docker deployment
+FROM base as deps-docker
+RUN \
+    apt update -y && \
+    apt upgrade -y && \
+    apt install -y --no-install-recommends \
+    gosu \
+        && \
+    apt clean -y && \
+    rm -rf /var/lib/apt/lists/*
+
+
+###########################################################
+# install deps for ripper
+FROM deps-docker as deps-ripper
 RUN \
     apt update -y && \
     apt install -y --no-install-recommends \
