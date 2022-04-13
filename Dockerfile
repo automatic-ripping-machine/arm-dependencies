@@ -1,6 +1,6 @@
 ###########################################################
 # base image, used for build stages and final images
-FROM ubuntu:20.04 as base
+FROM phusion/baseimage:focal-1.2.0 as base
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN mkdir /opt/arm
