@@ -1,6 +1,6 @@
 ###########################################################
 # base image, used for build stages and final images
-FROM ubuntu:20.04 as base
+FROM phusion/baseimage:focal-1.2.0 as base
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN mkdir /opt/arm
@@ -109,6 +109,6 @@ RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
 ENV DEBIAN_FRONTEND=newt
 
 # set metadata
-LABEL org.opencontainers.image.source=https://github.com/shitwolfymakes/arm-dependencies
+LABEL org.opencontainers.image.source=https://github.com/1337-server/arm-dependencies
 LABEL org.opencontainers.image.license=MIT
 LABEL org.opencontainers.image.revision="1.0"
