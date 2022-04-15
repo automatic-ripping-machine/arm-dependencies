@@ -24,6 +24,9 @@ The `arm-dependencies`Docker image is rebuilt every night, so you should always 
 To add this manually, run the following command:
 ```shell
 git submodule add -b main https://github.com/shitwolfymakes/arm-dependencies arm-dependencies
+git submodule update --init --recursive
+git config -f .gitmodules submodule.arm-dependencies.update rebase
+git submodule update --remote
 ```
 
 In your fork's `requirements.txt`, replace everything with
