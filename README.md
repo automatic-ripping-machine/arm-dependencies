@@ -37,7 +37,7 @@ In your fork's `requirements.txt`, replace everything with
 ### Docker Container
 To base your docker container on `arm-dependencies`, add this to the top of your `Dockerfile`:
 ```dockerfile
-FROM shitwolfymakes/arm-dependencies AS base
+FROM 1337server/arm-dependencies AS base
 ```
 
 To start the rsyslog service included in this container, add the following command before the command to run `armui.py` in your `Dockerfile`:
