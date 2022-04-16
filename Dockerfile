@@ -1,12 +1,9 @@
 ###########################################################
 # base image, used for build stages and final images
 FROM phusion/baseimage:focal-1.2.0 as base
-ENV DEBIAN_FRONTEND=noninteractive
 
 RUN mkdir /opt/arm
 WORKDIR /opt/arm
-
-COPY ./scripts/add-ppa.sh /root/add-ppa.sh
 
 # start by updating and upgrading the OS
 RUN \
@@ -29,6 +26,7 @@ RUN install_clean \
         vim
 
 # add the PPAs we need, using add-ppa.sh since add-apt-repository is unavailable
+COPY ./scripts/add-ppa.sh /root/add-ppa.sh
 RUN \
     bash /root/add-ppa.sh ppa:mc3man/focal6 && \
     bash /root/add-ppa.sh ppa:heyarje/makemkv-beta && \
@@ -74,18 +72,12 @@ FROM deps-ripper as arm-dependencies
 
 # install makemkv and handbrake
 RUN install_clean \
-        rsyslog \
         handbrake-cli \
         makemkv-bin \
         makemkv-oss
 
 # clean up apt
 RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
-
-# reset to default after build
-ENV DEBIAN_FRONTEND=newt
 
 # set metadata
 LABEL org.opencontainers.image.source=https://github.com/shitwolfymakes/arm-dependencies
