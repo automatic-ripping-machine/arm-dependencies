@@ -1,7 +1,7 @@
 # arm-dependencies
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/shitwolfymakes/arm-dependencies/publish-image)
-![Docker](https://img.shields.io/docker/pulls/shitwolfymakes/arm-dependencies.svg)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/shitwolfymakes/arm-dependencies/publish-image)](https://github.com/shitwolfymakes/arm-dependencies/actions/workflows/publish-image.yml)
+[![Docker](https://img.shields.io/docker/pulls/shitwolfymakes/arm-dependencies.svg)](https://hub.docker.com/r/shitwolfymakes/arm-dependencies)
 
 [![GitHub license](https://img.shields.io/github/license/shitwolfymakes/arm-dependencies)](https://github.com/shitwolfymakes/arm-dependencies/blob/main/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/shitwolfymakes/arm-dependencies)](https://github.com/shitwolfymakes/arm-dependencies/network)
@@ -11,7 +11,7 @@
 
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django)
 
-![Discord](https://img.shields.io/discord/576479573886107699)
+[![Discord](https://img.shields.io/discord/576479573886107699)](https://discord.gg/BCarpwC7qC)
 
 ## Overview
 This repo codifies the requirements for building and running Automatic Ripping Machine, and provides a docker container that has everything preinstalled. All you need to do is install the ARM source and set up files.
