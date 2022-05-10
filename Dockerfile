@@ -10,6 +10,10 @@ RUN \
     apt update && \
     apt upgrade -y -o Dpkg::Options::="--force-confold"
 
+# create an arm group(gid 1000) and an arm user(uid 1000), with password logon disabled
+RUN groupadd -g 1000 arm \
+    && useradd -rm -d /home/arm -s /bin/bash -g arm -G video,cdrom -u 1000 arm
+
 # setup gnupg/wget for add-ppa.sh
 RUN install_clean \
         wget \
