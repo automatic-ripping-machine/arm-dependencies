@@ -14,6 +14,12 @@ RUN \
 RUN groupadd -g 1000 arm \
     && useradd -rm -d /home/arm -s /bin/bash -g arm -G video,cdrom -u 1000 arm
 
+# set the default environment variables
+# UID and GID are not settable as of https://github.com/phusion/baseimage-docker/pull/86, as doing so would
+# break multi-account containers
+ENV ARM_UID=1000
+ENV ARM_GID=1000
+
 # setup gnupg/wget for add-ppa.sh
 RUN install_clean \
         wget \
