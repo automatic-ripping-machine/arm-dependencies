@@ -48,6 +48,11 @@ RUN \
 FROM base as deps-docker
 RUN install_clean gosu
 
+VOLUME /home/arm/Music
+VOLUME /home/arm/logs
+VOLUME /home/arm/media
+VOLUME /etc/arm/config
+
 
 ###########################################################
 # install deps for ripper
