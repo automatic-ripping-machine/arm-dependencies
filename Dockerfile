@@ -22,6 +22,7 @@ ENV ARM_GID=1000
 
 # setup gnupg/wget for add-ppa.sh
 RUN install_clean \
+        git \
         wget \
         build-essential \
         libcurl4-openssl-dev \
