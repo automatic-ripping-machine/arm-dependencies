@@ -38,10 +38,8 @@ RUN install_clean \
 
 # add the PPAs we need, using add-ppa.sh since add-apt-repository is unavailable
 COPY ./scripts/add-ppa.sh /root/add-ppa.sh
-RUN \
-    bash /root/add-ppa.sh ppa:mc3man/focal6 && \
-    bash /root/add-ppa.sh ppa:heyarje/makemkv-beta && \
-    bash /root/add-ppa.sh ppa:stebbins/handbrake-releases
+RUN bash /root/add-ppa.sh ppa:mc3man/focal6
+RUN bash /root/add-ppa.sh ppa:heyarje/makemkv-beta
 
 
 ###########################################################
