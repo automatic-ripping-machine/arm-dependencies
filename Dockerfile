@@ -1,18 +1,28 @@
 ###########################################################
 # base image, used for build stages and final images
 FROM phusion/baseimage:focal-1.2.0 as base
-ENV DEBIAN_FRONTEND=noninteractive
 
 RUN mkdir /opt/arm
 WORKDIR /opt/arm
 
-COPY ./scripts/add-ppa.sh /root/add-ppa.sh
+# start by updating and upgrading the OS
+RUN \
+    apt update && \
+    apt upgrade -y -o Dpkg::Options::="--force-confold"
+
+# create an arm group(gid 1000) and an arm user(uid 1000), with password logon disabled
+RUN groupadd -g 1000 arm \
+    && useradd -rm -d /home/arm -s /bin/bash -g arm -G video,cdrom -u 1000 arm
+
+# set the default environment variables
+# UID and GID are not settable as of https://github.com/phusion/baseimage-docker/pull/86, as doing so would
+# break multi-account containers
+ENV ARM_UID=1000
+ENV ARM_GID=1000
 
 # setup gnupg/wget for add-ppa.sh
-RUN \
-    apt update -y && \
-    apt upgrade -y && \
-    apt install -y --no-install-recommends \
+RUN install_clean \
+        git \
         wget \
         build-essential \
         libcurl4-openssl-dev \
@@ -24,37 +34,29 @@ RUN \
         python3-dev \
         python3-pip \
         nano \
-        vim \
-        && \
-    apt clean -y && \
-    rm -rf /var/lib/apt/lists/*
+        vim
 
 # add the PPAs we need, using add-ppa.sh since add-apt-repository is unavailable
-RUN \
-    bash /root/add-ppa.sh ppa:mc3man/focal6 && \
-    bash /root/add-ppa.sh ppa:heyarje/makemkv-beta && \
-    bash /root/add-ppa.sh ppa:stebbins/handbrake-releases
+COPY ./scripts/add-ppa.sh /root/add-ppa.sh
+RUN bash /root/add-ppa.sh ppa:mc3man/focal6
+RUN bash /root/add-ppa.sh ppa:heyarje/makemkv-beta
 
 
 ###########################################################
 # install deps specific to the docker deployment
 FROM base as deps-docker
-RUN \
-    apt update -y && \
-    apt upgrade -y && \
-    apt install -y --no-install-recommends \
-    gosu \
-        && \
-    apt clean -y && \
-    rm -rf /var/lib/apt/lists/*
+RUN install_clean gosu
+
+VOLUME /home/arm/Music
+VOLUME /home/arm/logs
+VOLUME /home/arm/media
+VOLUME /etc/arm/config
 
 
 ###########################################################
 # install deps for ripper
 FROM deps-docker as deps-ripper
-RUN \
-    apt update -y && \
-    apt install -y --no-install-recommends \
+RUN install_clean \
         abcde \
         eyed3 \
         atomicparsley \
@@ -64,28 +66,18 @@ RUN \
         flac \
         glyrc \
         default-jre-headless \
-        libavcodec-extra \
-        && \
-    apt clean -y && \
-    rm -rf /var/lib/apt/lists/*
+        libavcodec-extra
 
 # install python reqs
 COPY requirements.txt /requirements.txt
 RUN \
-    apt update -y && \
-    apt install -y --no-install-recommends && \
     pip3 install --upgrade pip wheel setuptools psutil pyudev && \
-    pip3 install --ignore-installed --prefer-binary -r /requirements.txt && \
-    apt clean -y && \
-    rm -rf /var/lib/apt/lists/*
+    pip3 install --ignore-installed --prefer-binary -r /requirements.txt
 
 # install libdvd-pkg
 RUN \
-    apt update -y && \
-    apt install -y --no-install-recommends libdvd-pkg && \
-    dpkg-reconfigure libdvd-pkg && \
-    apt clean -y && \
-    rm -rf /var/lib/apt/lists/*
+    install_clean libdvd-pkg && \
+    dpkg-reconfigure libdvd-pkg
 
 
 ###########################################################
@@ -93,20 +85,13 @@ RUN \
 FROM deps-ripper as arm-dependencies
 
 # install makemkv and handbrake
-RUN \
-    apt update -y && \
-    apt install -y --no-install-recommends \
-        rsyslog \
+RUN install_clean \
         handbrake-cli \
         makemkv-bin \
-        makemkv-oss \
-    && \
-    rm -rf /var/lib/apt/lists/*
+        makemkv-oss
 
-RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
-
-# reset to default after build
-ENV DEBIAN_FRONTEND=newt
+# clean up apt
+RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # set metadata
 LABEL org.opencontainers.image.source=https://github.com/1337-server/arm-dependencies
