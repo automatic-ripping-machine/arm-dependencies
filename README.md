@@ -23,7 +23,7 @@ The `arm-dependencies`Docker image is rebuilt every night, so you should always 
 ### Git Repo
 To add this manually, run the following command:
 ```shell
-git submodule add -b main https://github.com/shitwolfymakes/arm-dependencies arm-dependencies
+git submodule add -b main https://github.com/1337-server/arm-dependencies arm-dependencies
 git submodule update --init --recursive
 git config -f .gitmodules submodule.arm-dependencies.update rebase
 git submodule update --remote
@@ -37,5 +37,10 @@ In your fork's `requirements.txt`, replace everything with
 ### Docker Container
 To base your docker container on `arm-dependencies`, add this to the top of your `Dockerfile`:
 ```dockerfile
-FROM shitwolfymakes/arm-dependencies AS base
+FROM 1337server/arm-dependencies AS base
+```
+
+To start the rsyslog service included in this container, add the following command before the command to run `armui.py` in your `Dockerfile`:
+```dockerfile
+CMD service rsyslog start
 ```
