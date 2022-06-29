@@ -34,7 +34,7 @@ RUN install_clean \
         python3-dev \
         python3-pip \
         nano \
-        vim
+        vim libzbar-dev libzbar0 scons swig
 
 # add the PPAs we need, using add-ppa.sh since add-apt-repository is unavailable
 COPY ./scripts/add-ppa.sh /root/add-ppa.sh
@@ -85,11 +85,15 @@ RUN \
 FROM deps-ripper as arm-dependencies
 
 # install makemkv and handbrake
-RUN install_clean \
-        handbrake-cli \
-        makemkv-bin \
-        makemkv-oss
+#RUN apt update && install_clean handbrake-cli
+COPY ./scripts/install_handbrake.sh /install_handbrake.sh
+RUN chmod +x /install_handbrake.sh && sleep 1 && \
+    /install_handbrake.sh
 
+# MakeMKV setup by https://github.com/tianon
+COPY ./scripts/install_makemkv.sh /install_makemkv.sh
+RUN chmod +x /install_makemkv.sh && sleep 1 && \
+    /install_makemkv.sh
 # clean up apt
 RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
