@@ -1,7 +1,7 @@
 ###########################################################
 # base image, used for build stages and final images
 FROM phusion/baseimage:focal-1.2.0 as base
-
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN mkdir /opt/arm
 WORKDIR /opt/arm
 
