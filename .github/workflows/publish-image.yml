@@ -57,7 +57,7 @@ jobs:
                 uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
                 with:
                     registry: ${{ env.REGISTRY }}
-                    username: ${{ github.GITHUB_REPOSITORY_OWNER  }}
+                    username: ${{ github.repository_owner }}
                     password: ${{ secrets.GITHUB_TOKEN }}
 
             -
@@ -84,8 +84,8 @@ jobs:
                 uses: docker/build-push-action@v2
                 with:
                     context: .
-                    push: true
                     platforms: linux/amd64,linux/arm64,linux/arm/v7
+                    push: true
                     tags: ${{ env.IMAGE_NAME }}:${{ env.TAG }}
                     labels: ${{ steps.meta.outputs.labels }}
 
@@ -95,4 +95,4 @@ jobs:
                 with:
                     src: docker.io/${{ env.IMAGE_NAME }}:${{ env.TAG }}
                     # make sure the github name is correct
-                    dst: ${{ env.REGISTRY }}/${{ github.GITHUB_REPOSITORY_OWNER  }}/arm-dependencies:${{ env.TAG }}
+                    dst: ${{ env.REGISTRY }}/${{ github.repository_owner }}/arm-dependencies:${{ env.TAG }}
