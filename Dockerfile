@@ -6,7 +6,7 @@ WORKDIR /opt/arm
 
 # start by updating and upgrading the OS
 RUN \
-    echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
+    apt-get clean && \
     apt update && \
     apt upgrade -y -o Dpkg::Options::="--force-confold"
 
