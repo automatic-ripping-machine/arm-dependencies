@@ -1,7 +1,4 @@
 #!/bin/bash
-# https://github.com/HandBrake/HandBrake/releases
-HANDBRAKE_VERSION=$(curl --silent 'https://github.com/HandBrake/HandBrake/releases' | grep HandBrake/tree/1.5.1 | head -n 1 | sed -e 's/[^0-9\.]*//g')
-sleep 1
 # Setup taken from https://github.com/tianon/dockerfiles/blob/master/handbrake/Dockerfile
 # The Expat/MIT License
 #
@@ -22,11 +19,20 @@ sleep 1
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
+apkArch="$(dpkg --print-architecture)"
+
+# If we're not arm64 install standard HandBrakeCLI and exit cleanly
+if [ ! "$apkArch" = "amd64" ]; then
+    apt install handbrake-cli
+    exit 0
+fi
+# https://github.com/HandBrake/HandBrake/releases
+HANDBRAKE_VERSION=$(curl --silent 'https://github.com/HandBrake/HandBrake/releases' | grep HandBrake/tree/1.5.1 | head -n 1 | sed -e 's/[^0-9\.]*//g')
+sleep 1
 set -ex
 savedAptMark="$(apt-mark showmanual)"
 export PREFIX='/usr/local'
 #################################################################################################
-
 set -eux
 savedAptMark="$(apt-mark showmanual)"
 apt-get update
