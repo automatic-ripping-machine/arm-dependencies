@@ -8,7 +8,7 @@ WORKDIR /opt/arm
 RUN \
     apt clean && \
     apt update && \
-    apt upgrade -y -o Dpkg::Options::="--force-confold Timeout=120" -o DPkg::Lock::Timeout=120
+    apt upgrade -y -o Dpkg::Options::="--force-confold" -o DPkg::Lock::Timeout=120
 # create an arm group(gid 1000) and an arm user(uid 1000), with password logon disabled
 RUN groupadd -g 1000 arm \
     && useradd -rm -d /home/arm -s /bin/bash -g arm -G video,cdrom -u 1000 arm
