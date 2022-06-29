@@ -99,7 +99,7 @@ jobs:
                     push: true
                     tags: |
                       ${{ env.IMAGE_NAME }}:${{ env.TAG }}
-                      ${{ env.USER }}/${{ env.REPO }}:${{ env.VERSION }}
+                      ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
                     labels: ${{ steps.meta.outputs.labels }}
 
             -
@@ -108,4 +108,4 @@ jobs:
                 with:
                     src: docker.io/${{ env.IMAGE_NAME }}:${{ env.TAG }}
                     # make sure the github name is correct
-                    dst: ${{ env.REGISTRY }}/${{ github.repository_owner }}/arm-dependencies:${{ env.TAG }} , ${{ env.REGISTRY }}/${{ github.repository_owner }}/arm-dependencies:${{ env.VERSION }}
+                    dst: ${{ env.REGISTRY }}/${{ github.repository_owner }}/arm-dependencies:${{ env.TAG }},${{ env.REGISTRY }}/${{ github.repository_owner }}/arm-dependencies:${{ env.VERSION }}
