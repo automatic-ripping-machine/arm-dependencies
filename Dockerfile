@@ -6,8 +6,9 @@ WORKDIR /opt/arm
 
 # start by updating and upgrading the OS
 RUN \
-    apt-get clean && \
+    apt clean && \
     apt update && \
+    apt -f install && sudo dpkg --configure -a \
     apt upgrade -y -o Dpkg::Options::="--force-confold"
 
 # create an arm group(gid 1000) and an arm user(uid 1000), with password logon disabled
