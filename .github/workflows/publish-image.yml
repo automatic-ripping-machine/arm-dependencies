@@ -10,7 +10,7 @@ on:
     schedule:
         - cron: '0 0 * * *'
     push:
-        branches: [ main, indev ]
+        branches: [ main, indev, dev ]
     # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
 
@@ -40,10 +40,12 @@ jobs:
 
             -
                 name: Set tag for non-default branch
-                if: steps.branch-name.outputs.is_default == 'false'
+                if: ${{ steps.branch-name.outputs.ref_branch }} != ${{ steps.branch-name.outputs.default_branch }}
                 run: |
-                    echo "Branch name is ${{ env.GITHUB_REF_NAME }}"
-                    echo "TAG=${{ env.GITHUB_REF_NAME }}" >> $GITHUB_ENV
+                    echo "Branch name is ${{ steps.branch-name.outputs.ref_branch }}"
+                    echo "Master name is ${{ steps.branch-name.outputs.default_branch }}"
+                    echo "TAG=${{ steps.branch-name.outputs.ref_branch }}" >> $GITHUB_ENV
+
             -
                 name: Set up QEMU
                 uses: docker/setup-qemu-action@v2
@@ -69,7 +71,8 @@ jobs:
 
             -
                 name: Login to DockerHub
-                uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
+                if: github.event_name != 'pull_request'
+                uses: docker/login-action@v1
                 with:
                     username: ${{ secrets.DOCKERHUB_USERNAME }}
                     password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -87,6 +90,11 @@ jobs:
                 run: |
                     VER=$(cat VERSION)
                     echo "VERSION=$VER" >> $GITHUB_ENV
+            -
+                name: Set build datetime
+                run: |
+                    TIMESTAMP=$(date -u +'%Y-%m-%d T%H:%M:%SZ')
+                    echo "BUILD_DATE=$TIMESTAMP" >> $GITHUB_ENV
             # Build and push Docker image with Buildx
             # https://github.com/docker/build-push-action
             -
@@ -96,11 +104,14 @@ jobs:
                 with:
                     context: .
                     platforms: linux/amd64,linux/arm64,linux/arm/v7
-                    push: true
+                    push: ${{ github.event_name != 'pull_request' }}
                     tags: |
                       ${{ env.IMAGE_NAME }}:${{ env.TAG }}
                       ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
                     labels: ${{ steps.meta.outputs.labels }}
+                    build-args:
+                      BUILD_DATE=${{ env.BUILD_DATE }}
+                      VERSION=${{ env.VERSION }}
 
             -
                 name: retag and push multiplatform images to multiple registries

@@ -35,8 +35,10 @@ rm -rf /var/lib/apt/lists/*
 set -ex
 savedAptMark="$(apt-mark showmanual)"
 apt-get update
-apt-get install -y --no-install-recommends ca-certificates g++ gcc gnupg dirmngr libavcodec-dev libexpat-dev libssl-dev make pkg-config qtbase5-dev wget zlib1g-dev
-rm -rf /var/lib/apt/lists/*
+apt-get -q update && apt-get -qy install --no-install-recommends ca-certificates g++ gcc gnupg dirmngr libavcodec-dev libexpat-dev libssl-dev make pkg-config qtbase5-dev wget zlib1g-dev \
+    && apt-get -qy autoremove \
+    && apt-get clean \
+    && rm -r /var/lib/apt/lists/*
 wget -O 'sha256sums.txt.sig' "https://www.makemkv.com/download/makemkv-sha-${MAKEMKV_VERSION}.txt"
 export GNUPGHOME="$(mktemp -d)"
 gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 2ECF23305F1FC0B32001673394E3083A18042697
