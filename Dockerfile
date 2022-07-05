@@ -78,8 +78,6 @@ RUN \
     install_clean libdvd-pkg && \
     dpkg-reconfigure libdvd-pkg
 
-FROM phusion/baseimage:focal-1.2.0 as build
-# /usr/local/bin/HandBrakeCLI
 # install makemkv and handbrake
 #RUN apt update && install_clean handbrake-cli
 COPY ./scripts/install_handbrake.sh /install_handbrake.sh
@@ -92,18 +90,6 @@ RUN chmod +x /install_makemkv.sh && sleep 1 && \
     /install_makemkv.sh
 # clean up apt
 RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-###########################################################
-# Final image pushed for use
-FROM deps-ripper as arm-dependencies
-# Copy in HandBrakeCLI
-COPY --from=build /usr/local/bin/HandBrakeCLI /usr/local/bin/HandBrakeCLI
-# Copy in MakeMKV requirments
-COPY --from=build /usr/local/bin/makemkvcon /usr/local/bin/makemkvcon
-COPY --from=build /usr/local/bin/makemkv /usr/local/bin/makemkv
-COPY --from=build /usr/local/share/MakeMKV/appdata.tar /usr/local/share/MakeMKV/appdata.tar
-COPY --from=build /usr/local/lib/libmakemkv.so.1 /usr/local/lib/libmakemkv.so.1
-COPY --from=build /usr/local/lib/ /usr/local/lib/
 
 # Container healthcheck
 COPY scripts/healthcheck.sh /healthcheck.sh
