@@ -61,4 +61,3 @@ make -C build -j "$nproc"
 make -C build install
 cd /
 rm -rf /tmp/handbrake
-apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
