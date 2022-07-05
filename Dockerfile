@@ -36,6 +36,8 @@ RUN install_clean \
         vim \
         # arm extra requirements
         scons swig libzbar-dev libzbar0
+# Requirements for HandBrakeCLI
+RUN install_clean autoconf automake autopoint appstream build-essential cmake git wget libass-dev libbz2-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev libmp3lame-dev libnuma-dev libogg-dev libopus-dev libsamplerate-dev libspeex-dev libtheora-dev libtool libtool-bin libturbojpeg0-dev libvorbis-dev libx264-dev libxml2-dev libvpx-dev m4 make meson nasm ninja-build patch pkg-config python tar zlib1g-dev libva-dev libdrm-dev yasm libvpx. libx264.
 
 # add the PPAs we need, using add-ppa.sh since add-apt-repository is unavailable
 COPY ./scripts/add-ppa.sh /root/add-ppa.sh
