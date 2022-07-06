@@ -11,7 +11,7 @@
 
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django)
 
-[![Discord](https://img.shields.io/discord/576479573886107699)](https://discord.gg/BCarpwC7qC)
+[![Discord](https://img.shields.io/discord/576479573886107699)](https://discord.gg/FUSrn8jUcR)
 
 ## Overview
 This repo codifies the requirements for building and running Automatic Ripping Machine, and provides a docker container that has everything preinstalled. All you need to do is install the ARM source and set up files.
