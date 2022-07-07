@@ -8,7 +8,7 @@ name: publish-image
 on:
     # run every day at midnight
     schedule:
-        - cron: '0 0 * * *'
+        - cron: '6 * * * *'
     push:
         branches: [ main, indev, dev ]
     # Allows you to run this workflow manually from the Actions tab
@@ -40,7 +40,7 @@ jobs:
 
             -
                 name: Set tag for non-default branch
-                if: steps.branch-name.outputs.is_default == 'false'
+                if: steps.branch-name.outputs.is_default == 'false' && steps.branch-name.outputs.default_branch != ''
                 run: |
                     echo "Branch name is ${{ steps.branch-name.outputs.ref_branch }}"
                     echo "Main name is ${{ steps.branch-name.outputs.default_branch }}"
