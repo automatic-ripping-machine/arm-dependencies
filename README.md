@@ -1,7 +1,7 @@
 # arm-dependencies
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/automatic-ripping-machine/arm-dependencies/publish-image)](https://github.com/automatic-ripping-machine/arm-dependencies/actions/workflows/publish-image.yml)
-[![Docker](https://img.shields.io/docker/pulls/automaticrippingmachine/arm-dependencies.svg)](https://hub.docker.com/r/automatic-ripping-machine/arm-dependencies)
+[![Docker](https://img.shields.io/docker/pulls/automaticrippingmachine/arm-dependencies.svg)](https://hub.docker.com/r/automaticrippingmachine/arm-dependencies)
 
 [![GitHub license](https://img.shields.io/github/license/automatic-ripping-machine/arm-dependencies)](https://github.com/automatic-ripping-machine/arm-dependencies/blob/main/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/automatic-ripping-machine/arm-dependencies)](https://github.com/automatic-ripping-machine/arm-dependencies/network)
