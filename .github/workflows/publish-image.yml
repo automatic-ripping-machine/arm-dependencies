@@ -8,7 +8,7 @@ name: publish-image
 on:
     # run every day at midnight
     schedule:
-        - cron: '6 * * * *'
+        - cron: '*/6 * * * *'
     push:
         branches: [ main, indev, dev ]
     # Allows you to run this workflow manually from the Actions tab
