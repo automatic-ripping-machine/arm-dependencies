@@ -1,9 +1,9 @@
 alembic>=1.4.3
-apprise==0.9.7
+apprise==0.9.9
 bcrypt>=3.1.7
-beautifulsoup4==4.10.0
-certifi==2021.10.8
-cffi==1.15.0
+beautifulsoup4==4.11.1
+certifi==2022.6.15
+cffi==1.15.1
 charset-normalizer==2.0.12
 click>=8.0.1 # broken
 discid==1.2.0
@@ -12,7 +12,7 @@ Flask-Cors==3.0.10
 Flask-Login>=0.5.0 # broken
 Flask-Migrate==3.1.0
 Flask-SQLAlchemy==2.5.1
-Flask-WTF==1.0.0
+Flask-WTF==1.0.1
 greenlet==1.1.2
 idna==3.3
 itsdangerous>=2.0.1 # broken
@@ -24,7 +24,7 @@ musicbrainzngs==0.7.1
 netifaces==0.11.0
 oauthlib==3.2.0
 prettytable>=2.5.0 # broken
-psutil==5.9.0
+psutil==5.9.1
 pycparser==2.21
 pycurl==7.45.1
 pydvdid==1.1
@@ -34,11 +34,11 @@ requests==2.27.1
 requests-oauthlib==1.3.1
 robobrowser==0.5.3
 six==1.16.0
-soupsieve==2.3.1
-SQLAlchemy==1.4.32
+soupsieve==2.3.2.post1
+SQLAlchemy==1.4.39
 tinydownload==0.1.0
-urllib3==1.26.9
+urllib3==1.26.10
 wcwidth==0.2.5
 Werkzeug>=2.0.3 # broken
 WTForms>=3.0.0 # broken
-xmltodict==0.12.0
+xmltodict==0.13.0
