@@ -6,7 +6,9 @@ name: "Test Ubuntu 18 Support"
 on:
   # Triggers the workflow on push or pull request events but only for the v2.3_dev branch
   push:
+    branches: [ main, indev, dev ]
   pull_request:
+    branches: [ main, indev, dev ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -21,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
     - name: Update and Upgrade
