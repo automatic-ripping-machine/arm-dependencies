@@ -39,6 +39,6 @@ SQLAlchemy==1.4.39
 tinydownload==0.1.0
 urllib3==1.26.10
 wcwidth==0.2.5
-Werkzeug>=2.0.3 # broken
+Werkzeug==2.0.3 # broken
 WTForms>=3.0.0 # broken
 xmltodict==0.13.0
