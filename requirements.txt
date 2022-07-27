@@ -9,7 +9,7 @@ click>=8.0.1 # broken
 discid==1.2.0
 Flask>=2.0.3 # broken
 Flask-Cors==3.0.10
-Flask-Login>=0.5.0 # broken
+Flask-Login==0.5.0 # broken
 Flask-Migrate==3.1.0
 Flask-SQLAlchemy==2.5.1
 Flask-WTF==1.0.1
@@ -39,6 +39,6 @@ SQLAlchemy==1.4.39
 tinydownload==0.1.0
 urllib3==1.26.10
 wcwidth==0.2.5
-Werkzeug>=2.0.3 # broken
+Werkzeug==2.0.3 # broken
 WTForms>=3.0.0 # broken
 xmltodict==0.13.0
