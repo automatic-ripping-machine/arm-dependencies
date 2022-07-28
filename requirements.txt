@@ -5,9 +5,9 @@ beautifulsoup4==4.11.1
 certifi==2022.6.15
 cffi==1.15.1
 charset-normalizer==2.0.12
-click>=8.0.1 # broken
+click==8.1.0
 discid==1.2.0
-Flask>=2.0.3 # broken
+Flask==2.1.0
 Flask-Cors==3.0.10
 Flask-Login==0.5.0 # broken
 Flask-Migrate==3.1.0
@@ -15,11 +15,11 @@ Flask-SQLAlchemy==2.5.1
 Flask-WTF==1.0.1
 greenlet==1.1.2
 idna==3.3
-itsdangerous>=2.0.1 # broken
-Jinja2>=3.0.3 # broken
-Mako>=1.1.6 # broken
+itsdangerous==2.1.2
+Jinja2==3.1.1
+Mako==1.2.0
 Markdown==3.3.4
-MarkupSafe>=2.0.1 # broken
+MarkupSafe==2.1.1
 musicbrainzngs==0.7.1
 netifaces==0.11.0
 oauthlib==3.2.0
