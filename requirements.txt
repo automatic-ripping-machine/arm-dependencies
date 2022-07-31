@@ -4,7 +4,7 @@ bcrypt>=3.1.7
 beautifulsoup4==4.11.1
 certifi==2022.6.15
 cffi==1.15.1
-charset-normalizer==2.0.12
+charset-normalizer==2.1.0
 click>=8.0.1 # broken
 discid==1.2.0
 Flask>=2.0.3 # broken
