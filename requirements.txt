@@ -1,11 +1,11 @@
-alembic>=1.4.3
+alembic==1.4.3
 apprise==0.9.9
-bcrypt>=3.1.7
+bcrypt==3.1.7
 beautifulsoup4==4.11.1
 certifi==2022.6.15
 cffi==1.15.1
 charset-normalizer==2.0.12
-click>=8.0.1 # broken
+click==8.0.1 # broken
 discid==1.2.0
 Flask==2.0.3 # broken
 Flask-Cors==3.0.10
@@ -15,15 +15,15 @@ Flask-SQLAlchemy==2.5.1
 Flask-WTF==1.0.1
 greenlet==1.1.2
 idna==3.3
-itsdangerous>=2.0.1 # broken
-Jinja2>=3.0.3 # broken
-Mako>=1.1.6 # broken
+itsdangerous==2.0.1 # broken
+Jinja2==3.0.3 # broken
+Mako==1.1.6 # broken
 Markdown==3.3.4
-MarkupSafe>=2.0.1 # broken
+MarkupSafe==2.0.1 # broken
 musicbrainzngs==0.7.1
 netifaces==0.11.0
 oauthlib==3.2.0
-prettytable>=2.5.0 # broken
+prettytable==2.5.0 # broken
 psutil==5.9.1
 pycparser==2.21
 pycurl==7.45.1
@@ -40,5 +40,5 @@ tinydownload==0.1.0
 urllib3==1.26.10
 wcwidth==0.2.5
 Werkzeug==2.0.3 # broken
-WTForms>=3.0.0 # broken
+WTForms==3.0.0 # broken
 xmltodict==0.13.0
