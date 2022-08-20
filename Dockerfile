@@ -73,7 +73,6 @@ COPY requirements.txt /requirements.txt
 RUN \
     pip3 install --upgrade pip wheel setuptools psutil pyudev && \
     pip3 install --ignore-installed --prefer-binary -r /requirements.txt
-
 # install libdvd-pkg
 RUN \
     install_clean libdvd-pkg && \
