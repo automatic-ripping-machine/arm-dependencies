@@ -24,7 +24,7 @@ musicbrainzngs==0.7.1
 netifaces==0.11.0
 oauthlib==3.2.1
 prettytable==2.5.0 # broken
-psutil==5.9.1
+psutil==5.9.2
 pycparser==2.21
 pycurl==7.45.1
 pydvdid==1.1
