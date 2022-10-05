@@ -1,6 +1,6 @@
 alembic==1.4.3
 apprise==0.9.9
-bcrypt==3.2.2
+bcrypt==4.0.0
 beautifulsoup4==4.11.1
 certifi==2022.9.24
 cffi==1.15.1
