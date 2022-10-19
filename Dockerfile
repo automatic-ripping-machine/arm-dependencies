@@ -69,9 +69,9 @@ RUN install_clean \
         libavcodec-extra
 
 # install python reqs
-COPY requirements.txt /requirements.txt
+COPY requirements.txt ./requirements.txt
 RUN pip3 install --upgrade pip wheel setuptools psutil pyudev
-RUN pip3 install --ignore-installed --prefer-binary -r /requirements.txt
+RUN pip3 install --ignore-installed --prefer-binary -r ./requirements.txt
 # install libdvd-pkg
 RUN \
     install_clean libdvd-pkg && \
