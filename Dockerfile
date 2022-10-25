@@ -32,8 +32,8 @@ RUN install_clean \
         python3 \
         python3-dev \
         python3-pip \
-        #rustc \
-        #cargo \
+        rustc \
+        cargo \
         nano \
         vim \
         # arm extra requirements
@@ -78,7 +78,7 @@ RUN \
 # install python reqs
 COPY requirements.txt ./requirements.txt
 RUN pip install --upgrade pip wheel setuptools psutil pyudev
-RUN pip install --ignore-installed --prefer-binaries -r ./requirements.txt
+RUN pip install --ignore-installed --prefer-binary -r ./requirements.txt
 
 
 ###########################################################
