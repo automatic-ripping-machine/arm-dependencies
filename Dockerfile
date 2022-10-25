@@ -71,7 +71,7 @@ RUN install_clean \
 # install libdvd-pkg
 RUN \
     install_clean libdvd-pkg && \
-    dpkg-reconfigure libdvd-pkg \
+    dpkg-reconfigure libdvd-pkg
 
 # install python reqs
 COPY requirements.txt ./requirements.txt
