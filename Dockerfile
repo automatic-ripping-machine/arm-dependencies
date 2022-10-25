@@ -68,15 +68,18 @@ RUN install_clean \
         default-jre-headless \
         libavcodec-extra
 
+# install libdvd-pkg
+RUN \
+    install_clean libdvd-pkg && \
+    dpkg-reconfigure libdvd-pkg \
+
 # install python reqs
 COPY requirements.txt ./requirements.txt
 RUN pip install --upgrade pip wheel setuptools psutil pyudev
 RUN pip install --ignore-installed --prefer-binary -r ./requirements.txt
-# install libdvd-pkg
-RUN \
-    install_clean libdvd-pkg && \
-    dpkg-reconfigure libdvd-pkg
 
+
+###########################################################
 # install makemkv and handbrake
 FROM deps-ripper as install-makemkv-handbrake
 #RUN apt update && install_clean handbrake-cli
