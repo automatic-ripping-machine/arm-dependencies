@@ -78,6 +78,7 @@ RUN \
     dpkg-reconfigure libdvd-pkg
 
 # install makemkv and handbrake
+FROM deps-ripper as install-makemkv-handbrake
 #RUN apt update && install_clean handbrake-cli
 #COPY ./scripts/install_handbrake.sh /install_handbrake.sh
 #RUN chmod +x /install_handbrake.sh && sleep 1 && \
