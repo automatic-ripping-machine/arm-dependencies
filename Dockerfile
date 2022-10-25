@@ -77,8 +77,8 @@ RUN \
 
 # install python reqs
 COPY requirements.txt ./requirements.txt
-RUN pip install --upgrade pip wheel setuptools psutil pyudev
-RUN pip install --ignore-installed --prefer-binary -r ./requirements.txt
+RUN pip3 install --upgrade pip wheel setuptools psutil pyudev setuptools_rust
+RUN pip3 install --ignore-installed --prefer-binary -r ./requirements.txt
 
 
 ###########################################################
