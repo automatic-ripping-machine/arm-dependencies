@@ -33,6 +33,7 @@ RUN install_clean \
         python3-dev \
         python3-pip \
         rustc \
+        cargo \
         nano \
         vim \
         # arm extra requirements
