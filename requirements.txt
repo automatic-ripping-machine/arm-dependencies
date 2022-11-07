@@ -13,7 +13,7 @@ Flask-Login==0.5.0 # broken
 Flask-Migrate==3.1.0
 Flask-SQLAlchemy==2.5.1
 Flask-WTF==1.0.1
-greenlet==1.1.2
+greenlet==2.0.1
 idna==3.4
 itsdangerous==2.0.1 # broken
 Jinja2==3.0.3 # broken
