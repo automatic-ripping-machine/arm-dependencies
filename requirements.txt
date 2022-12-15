@@ -1,4 +1,4 @@
-alembic==1.4.3
+alembic==1.9.0
 apprise==0.9.9
 bcrypt==3.2.2
 beautifulsoup4==4.11.1
