@@ -66,7 +66,8 @@ RUN install_clean \
         flac \
         glyrc \
         default-jre-headless \
-        libavcodec-extra
+        libavcodec-extra \
+        lsdvd
 
 # install libdvd-pkg
 RUN \
