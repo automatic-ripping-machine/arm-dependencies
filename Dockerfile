@@ -66,19 +66,23 @@ RUN install_clean \
         flac \
         glyrc \
         default-jre-headless \
-        libavcodec-extra
+        libavcodec-extra \
+        lsdvd
 
-# install python reqs
-COPY requirements.txt /requirements.txt
-RUN \
-    pip3 install --upgrade pip wheel setuptools psutil pyudev && \
-    pip3 install --ignore-installed --prefer-binary -r /requirements.txt
 # install libdvd-pkg
 RUN \
     install_clean libdvd-pkg && \
     dpkg-reconfigure libdvd-pkg
 
+# install python reqs
+COPY requirements.txt ./requirements.txt
+RUN pip3 install --upgrade pip wheel setuptools psutil pyudev
+RUN pip3 install --ignore-installed --prefer-binary -r ./requirements.txt
+
+
+###########################################################
 # install makemkv and handbrake
+FROM deps-ripper as install-makemkv-handbrake
 #RUN apt update && install_clean handbrake-cli
 #COPY ./scripts/install_handbrake.sh /install_handbrake.sh
 #RUN chmod +x /install_handbrake.sh && sleep 1 && \
