@@ -21,7 +21,6 @@ jobs:
           sed -i "12i ## [${SEM_VER}]\n### Changed\n* ${COMMIT_MSG}" CHANGELOG.md
           # Add new git commit
           git add VERSION
-          git add CHANGELOG.md
           git config --global user.name "dependabot[bot]"
           git config --global user.email "dependabot[bot]@users.noreply.github.com"
           git commit -m "[Automated] Increment Version"      
