@@ -52,10 +52,11 @@ jobs:
                 name: Set tag for PR
                 if: ${{ github.event_name == 'pull_request' }}
                 run: |
-                    echo "Tag will be: pr${{ steps.branch-name.outputs.ref_branch%/*}}"
+                    echo "SAFETAG=${{ steps.branch-name.outputs.ref_branch }}"
+                    echo "Tag will be: pr${SAFETAG%/*}"
                     echo "Branch name is ${{ steps.branch-name.outputs.ref_branch }}" # 102/merge
                     echo "Main name is ${{ steps.branch-name.outputs.default_branch }}"
-                    echo "TAG=pr${{steps.branch-name.outputs.ref_branch%/* }}" >> $GITHUB_ENV
+                    echo "TAG=pr${SAFETAG%/*}" >> $GITHUB_ENV
 
             -
                 name: Set up QEMU
