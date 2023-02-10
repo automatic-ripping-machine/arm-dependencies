@@ -1,11 +1,8 @@
-name: Version Increment
+name: "Version Increment"
 
 on:
   push:
-    branches:
-      - main
   pull_request:
-    branches: [ main, v2_devel, v2_master]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -16,8 +13,6 @@ jobs:
       - uses: actions/checkout@v2
       - run: git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
       - run: git config user.name "$GITHUB_ACTOR"
-      - run: npm version minor -m "v%s"
-      - run: VERSION=$(node -p "require('./package.json').version")
       - run: |
           SEM_VER=$(cat VERSION | awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{if(length($NF+1)>length($NF))$(NF-1)++; $NF=sprintf("%0*d", length($NF), ($NF+1)%(10^length($NF))); print}')
           COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.event.after }})
