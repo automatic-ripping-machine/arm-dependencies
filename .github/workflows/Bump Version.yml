@@ -2,7 +2,6 @@ name: "Version Increment"
 
 on:
   push:
-  pull_request:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -10,21 +9,42 @@ jobs:
   version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+          
+      -
+          name: Get branch name
+          id: branch-name
+          uses: tj-actions/branch-names@v6
+
+
+      -
+          name: Set tag for non-default branch
+          if: steps.branch-name.outputs.is_default == 'false' && steps.branch-name.outputs.default_branch != ''
+          run: |
+                    echo "Branch name is ${{ steps.branch-name.outputs.ref_branch }}"
+                    echo "Main name is ${{ steps.branch-name.outputs.default_branch }}"
+                    echo "TAG=${{ steps.branch-name.outputs.current_branch }}" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref }}
-      - run: git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-      - run: git config user.name "$GITHUB_ACTOR"
+          ref: ${{ steps.branch-name.outputs.current_branch }}
+          fetch-depth: 0
       - run: |
+           echo "github ref = ${{ github.ref }} 
+           and ${{ steps.branch-name.outputs.current_branch }} 
+           and ${{ github.GITHUB_HEAD_REF }}"
+      - run: git switch ${{ steps.branch-name.outputs.current_branch }}
+      - name: Commit files
+        run: |
           SEM_VER=$(cat VERSION | awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{if(length($NF+1)>length($NF))$(NF-1)++; $NF=sprintf("%0*d", length($NF), ($NF+1)%(10^length($NF))); print}')
           COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.event.after }})
           # Write files
           echo $SEM_VER > VERSION
           # Add new git commit
           git add VERSION
-          git config --global user.name "dependabot[bot]"
-          git config --global user.email "dependabot[bot]@users.noreply.github.com"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git commit -m "[Automated] Increment Version"      
-      - run: git tag ${VERSION}
-      - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
-      - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.branch-name.outputs.current_branch }} 
