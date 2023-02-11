@@ -61,6 +61,7 @@ jobs:
                     echo "Branch name is ${{ steps.branch-name.outputs.ref_branch }}" # 102/merge
                     echo "Main name is ${{ steps.branch-name.outputs.default_branch }}"
                     echo "TAG=pr${GITHUB_REF##*/}" >> $GITHUB_ENV
+                    echo "VERSION=pr${GITHUB_REF##*/} >> $GITHUB_ENV
             -
                 name: Set up QEMU
                 uses: docker/setup-qemu-action@v2
