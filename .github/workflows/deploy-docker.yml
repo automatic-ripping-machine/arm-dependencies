@@ -43,6 +43,7 @@ jobs:
                 if: steps.branch-name.outputs.is_default == 'false' && steps.branch-name.outputs.default_branch != ''
                 run: |
                     echo "event name is ${{ github.event_name }}"
+                    echo "PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')"
                     echo "Branch name is ${{ steps.branch-name.outputs.ref_branch }}"
                     echo "Main name is ${{ steps.branch-name.outputs.default_branch }}"
                     echo "TAG=${{ steps.branch-name.outputs.ref_branch }}" >> $GITHUB_ENV
