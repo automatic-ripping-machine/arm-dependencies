@@ -21,7 +21,7 @@ env:
     TAG: latest
 
 jobs:
-    build:
+    deploy:
         runs-on: ubuntu-latest
         permissions:
             contents: read
@@ -46,7 +46,15 @@ jobs:
                     echo "Branch name is ${{ steps.branch-name.outputs.ref_branch }}"
                     echo "Main name is ${{ steps.branch-name.outputs.default_branch }}"
                     echo "TAG=${{ steps.branch-name.outputs.ref_branch }}" >> $GITHUB_ENV
-
+            -
+                name: Set tag for PR
+                if: ${{ github.event_name == 'pull_request' }}
+                run: |
+                    SAFETAG="${{ steps.branch-name.outputs.ref_branch }}"
+                    echo "Tag will be: pr${SAFETAG%/*}"
+                    echo "Branch name is ${{ steps.branch-name.outputs.ref_branch }}" # 102/merge
+                    echo "Main name is ${{ steps.branch-name.outputs.default_branch }}"
+                    echo "TAG=pr${SAFETAG%/*}" >> $GITHUB_ENV
             -
                 name: Set up QEMU
                 uses: docker/setup-qemu-action@v2
