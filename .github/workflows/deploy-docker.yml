@@ -48,7 +48,7 @@ jobs:
                     echo "TAG=${{ steps.branch-name.outputs.ref_branch }}" >> $GITHUB_ENV
             -
                 name: Set tag for PR
-                if: ${{ github.event_name == 'pull_request' }}
+                if: ${{ github.event_name == 'pull_request' }} or ${{ github.actor == 'dependabot[bot]' }}
                 run: |
                     SAFETAG="${{ steps.branch-name.outputs.ref_branch }}"
                     echo "Tag will be: pr${SAFETAG%/*}"
