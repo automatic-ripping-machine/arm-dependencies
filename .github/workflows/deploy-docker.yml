@@ -35,7 +35,6 @@ jobs:
             -
                 name: Get branch name
                 id: branch-name
-
                 uses: tj-actions/branch-names@v6
 
 
@@ -43,6 +42,7 @@ jobs:
                 name: Set tag for non-default branch
                 if: steps.branch-name.outputs.is_default == 'false' && steps.branch-name.outputs.default_branch != ''
                 run: |
+                    echo "event name is ${{ github.event_name }}"
                     echo "Branch name is ${{ steps.branch-name.outputs.ref_branch }}"
                     echo "Main name is ${{ steps.branch-name.outputs.default_branch }}"
                     echo "TAG=${{ steps.branch-name.outputs.ref_branch }}" >> $GITHUB_ENV
