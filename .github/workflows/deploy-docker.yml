@@ -40,11 +40,7 @@ jobs:
 
             -
                 name: Set tag for non-default branch
-                if: |
-                    ${{ steps.branch-name.outputs.is_default == 'false'
-                      && steps.branch-name.outputs.default_branch != ''
-                      && github.actor != 'dependabot[bot]'
-                      }} 
+                if: ${{ steps.branch-name.outputs.is_default == 'false' && steps.branch-name.outputs.default_branch != '' && github.actor != 'dependabot[bot]' }}
                 run: |
                     echo "Run me: (${{ steps.branch-name.outputs.is_default == 'false' && steps.branch-name.outputs.default_branch != '' && github.actor != 'dependabot[bot]' }})"
                     echo "Actor = ${{ github.actor }}"
