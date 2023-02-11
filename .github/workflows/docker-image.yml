@@ -40,7 +40,7 @@ jobs:
             -
                 name: Set tag for PR
                 run: |
-                    echo "SAFETAG=${{ steps.branch-name.outputs.ref_branch }}"
+                    SAFETAG="${{ steps.branch-name.outputs.ref_branch }}"
                     echo "Tag will be: pr${SAFETAG%/*}"
                     echo "Branch name is ${{ steps.branch-name.outputs.ref_branch }}" # 102/merge
                     echo "Main name is ${{ steps.branch-name.outputs.default_branch }}"
