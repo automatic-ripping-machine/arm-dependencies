@@ -102,10 +102,14 @@ jobs:
                     images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
             -
                 name: Set Version number
-                if: ${{ steps.branch-name.outputs.is_default && steps.branch-name.outputs.default_branch != '' && github.actor != 'dependabot[bot]' }}
                 run: |
-                    VER=$(cat VERSION)
-                    echo "VERSION=$VER" >> $GITHUB_ENV
+                    if [ ${{ steps.branch-name.outputs.is_default }} = true ]; then
+                      VER=$(cat VERSION)
+                      echo "VERSION=$VER" >> $GITHUB_ENV
+                    else
+                      echo "VERSION=${{ env.TAG }}" >> $GITHUB_ENV
+                      echo "${{ env.TAG }}" > ./VERSION
+                    fi
             -
                 name: Set build datetime
                 run: |
