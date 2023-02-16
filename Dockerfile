@@ -1,6 +1,6 @@
 ###########################################################
 # base image, used for build stages and final images
-FROM phusion/baseimage:focal-1.2.0 as base
+FROM phusion/baseimage:focal-1.2.0 AS base
 RUN mkdir /opt/arm
 WORKDIR /opt/arm
 
@@ -44,7 +44,7 @@ RUN bash /root/add-ppa.sh ppa:mc3man/focal6
 
 ###########################################################
 # install deps specific to the docker deployment
-FROM base as deps-docker
+FROM base AS deps-docker
 RUN install_clean gosu
 
 VOLUME /home/arm/Music
@@ -55,7 +55,7 @@ VOLUME /etc/arm/config
 
 ###########################################################
 # install deps for ripper
-FROM deps-docker as deps-ripper
+FROM deps-docker AS deps-ripper
 RUN install_clean \
         abcde \
         eyed3 \
@@ -82,7 +82,7 @@ RUN pip3 install --ignore-installed --prefer-binary -r ./requirements.txt
 
 ###########################################################
 # install makemkv and handbrake
-FROM deps-ripper as install-makemkv-handbrake
+FROM deps-ripper AS install-makemkv-handbrake
 #RUN apt update && install_clean handbrake-cli
 #COPY ./scripts/install_handbrake.sh /install_handbrake.sh
 #RUN chmod +x /install_handbrake.sh && sleep 1 && \

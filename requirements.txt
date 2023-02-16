@@ -1,8 +1,8 @@
 alembic==1.4.3
 apprise==0.9.9
-bcrypt==4.0.0
+bcrypt==3.2.2 # Newer versions dont have Wheel
 beautifulsoup4==4.11.1
-certifi==2022.9.24
+certifi==2022.12.7
 cffi==1.15.1
 charset-normalizer==2.0.12
 click==8.0.1 # broken
@@ -22,7 +22,7 @@ Markdown==3.3.4
 MarkupSafe==2.0.1 # broken
 musicbrainzngs==0.7.1
 netifaces==0.11.0
-oauthlib==3.2.1
+oauthlib==3.2.2
 prettytable==2.5.0 # broken
 psutil==5.9.2
 pycparser==2.21

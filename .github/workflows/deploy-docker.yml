@@ -1,4 +1,4 @@
-name: publish-image
+name: "Deploy Docker Image"
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -10,7 +10,6 @@ on:
     schedule:
         - cron: '0 0 * * *'
     push:
-        branches: [ main, indev, dev ]
     # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
 
@@ -22,7 +21,7 @@ env:
     TAG: latest
 
 jobs:
-    build:
+    deploy:
         runs-on: ubuntu-latest
         permissions:
             contents: read
@@ -36,18 +35,33 @@ jobs:
             -
                 name: Get branch name
                 id: branch-name
-
                 uses: tj-actions/branch-names@v6
 
 
             -
                 name: Set tag for non-default branch
-                if: steps.branch-name.outputs.is_default == 'false' && steps.branch-name.outputs.default_branch != ''
+                if: ${{ steps.branch-name.outputs.is_default == 'false' && steps.branch-name.outputs.default_branch != '' && github.actor != 'dependabot[bot]' }}
                 run: |
+                    echo "Run me: (${{ steps.branch-name.outputs.is_default == 'false' && steps.branch-name.outputs.default_branch != '' && github.actor != 'dependabot[bot]' }})"
+                    echo "Set tag for PR: ${{ github.event_name == 'pull_request' || github.actor == 'dependabot[bot]' && steps.branch-name.outputs.is_default == 'false' && steps.branch-name.outputs.default_branch != '' }} "
+                    echo "Actor = ${{ github.actor }}"
+                    echo "event name is ${{ github.event_name }}"
+                    echo "PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')"
+                    echo "PR NAME: ${GITHUB_REF##*/}"
+                    echo "PR number: ${{ github.event.pull_request.number }}"
                     echo "Branch name is ${{ steps.branch-name.outputs.ref_branch }}"
                     echo "Main name is ${{ steps.branch-name.outputs.default_branch }}"
                     echo "TAG=${{ steps.branch-name.outputs.ref_branch }}" >> $GITHUB_ENV
-
+            -
+                name: Set tag for PR
+                if: ${{ github.event_name == 'pull_request' || github.actor == 'dependabot[bot]' && steps.branch-name.outputs.is_default == 'false' && steps.branch-name.outputs.default_branch != '' }}
+                run: |
+                    SAFETAG="${{ steps.branch-name.outputs.ref_branch }}"
+                    #echo "Tag will be: pr${SAFETAG%/*}"
+                    echo "Branch name is ${{ steps.branch-name.outputs.ref_branch }}" # 102/merge
+                    echo "Main name is ${{ steps.branch-name.outputs.default_branch }}"
+                    echo "TAG=pr${GITHUB_REF##*/}" >> $GITHUB_ENV
+                    echo "VERSION=pr${GITHUB_REF##*/}" >> $GITHUB_ENV
             -
                 name: Set up QEMU
                 uses: docker/setup-qemu-action@v2
@@ -65,7 +79,7 @@ jobs:
             # https://github.com/docker/login-action
             -
                 name: Log into registry ${{ env.REGISTRY }}
-                uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+                uses: docker/login-action@v2
                 with:
                     registry: ${{ env.REGISTRY }}
                     username: ${{ github.repository_owner }}
@@ -73,7 +87,7 @@ jobs:
 
             -
                 name: Login to DockerHub
-                uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+                uses: docker/login-action@v2
                 with:
                     username: ${{ secrets.DOCKERHUB_USERNAME }}
                     password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -89,8 +103,13 @@ jobs:
             -
                 name: Set Version number
                 run: |
-                    VER=$(cat VERSION)
-                    echo "VERSION=$VER" >> $GITHUB_ENV
+                    if [ ${{ steps.branch-name.outputs.is_default }} = true ]; then
+                      VER=$(cat VERSION)
+                      echo "VERSION=$VER" >> $GITHUB_ENV
+                    else
+                      echo "VERSION=${{ env.TAG }}" >> $GITHUB_ENV
+                      echo "${{ env.TAG }}" > ./VERSION
+                    fi
             -
                 name: Set build datetime
                 run: |

@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Auto-grab latest version
-MAKEMKV_VERSION=$(curl --silent 'https://forum.makemkv.com/forum/viewtopic.php?f=3&t=224' | grep MakeMKV.*.for.Linux.is | head -n 1 | sed -e 's/.*MakeMKV //g' -e 's/ .*//g')
+echo -e "${RED}Finding current MakeMKV version${NC}"
+MAKEMKV_VERSION=$(curl -s https://www.makemkv.com/download/ | grep -o [0-9.]*.txt | sed 's/.txt//')
+echo -e "${RED}Downloading MakeMKV $mmv sha, bin, and oss${NC}"
 
 # Setup taken from https://github.com/tianon/dockerfiles/blob/master/makemkv/Dockerfile
 # The Expat/MIT License
