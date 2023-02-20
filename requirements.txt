@@ -42,3 +42,8 @@ wcwidth==0.2.5
 Werkzeug==2.0.3 # broken
 WTForms==3.0.0 # broken
 xmltodict==0.13.0
+#requirements added for PR#551
+argparse==1.4.0
+colorama==0.4.4
+#requirements added for PR#650
+flake8==6.0.0
