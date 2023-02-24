@@ -56,5 +56,6 @@ nproc="$(nproc)"
 ./configure --disable-gtk --enable-qsv --enable-vce --launch-jobs="$nproc" --launch
 make -C build -j "$nproc"
 make -C build install
+cp /usr/local/bin/HandBrakeCLI /usr/bin/HandBrakeCLI
 cd /
 rm -rf /tmp/handbrake
