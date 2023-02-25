@@ -20,7 +20,6 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 apkArch="$(dpkg --print-architecture)"
-# curl --silent 'https://github.com/automatic-ripping-machine/automatic-ripping-machine/releases' | grep automatic-ripping-machine/tree/* | head -n 1 | sed -e 's/[^0-9\.]*//g'
 # https://github.com/HandBrake/HandBrake/releases
 HANDBRAKE_VERSION=$(curl --silent 'https://github.com/HandBrake/HandBrake/releases' | grep 'HandBrake/tree/*' | head -n 1 | sed -e 's/[^0-9\.]*//g')
 sleep 1
@@ -34,7 +33,10 @@ if [ ! "$apkArch" = "amd64" ]; then
   cp /usr/bin/HandBrakeCLI /usr/local/bin/HandBrakeCLI
   exit 0
 fi
+apt install -yqq autoconf automake autopoint appstream build-essential cmake git libass-dev libbz2-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev libmp3lame-dev libnuma-dev libogg-dev libopus-dev libsamplerate-dev libspeex-dev libtheora-dev libtool libtool-bin libturbojpeg0-dev libvorbis-dev libx264-dev libxml2-dev libvpx-dev m4 make meson nasm ninja-build patch pkg-config tar zlib1g-dev clang libva-dev libdrm-dev
 #################################################################################################
+apt-get update
+apt-get install -y autoconf automake autopoint appstream build-essential cmake git libass-dev libbz2-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev libmp3lame-dev libnuma-dev libogg-dev libopus-dev libsamplerate-dev libspeex-dev libtheora-dev libtool libtool-bin libturbojpeg0-dev libvorbis-dev libx264-dev libxml2-dev libvpx-dev m4 make meson nasm ninja-build patch pkg-config tar zlib1g-dev clang libavcodec-dev  libva-dev libdrm-dev
 set -eux
 wget -O handbrake.tar.bz2.sig "https://github.com/HandBrake/HandBrake/releases/download/$HANDBRAKE_VERSION/HandBrake-$HANDBRAKE_VERSION-source.tar.bz2.sig"
 wget -O handbrake.tar.bz2 "https://github.com/HandBrake/HandBrake/releases/download/$HANDBRAKE_VERSION/HandBrake-$HANDBRAKE_VERSION-source.tar.bz2"
@@ -55,5 +57,7 @@ nproc="$(nproc)"
 ./configure --disable-gtk --enable-qsv --enable-vce --launch-jobs="$nproc" --launch
 make -C build -j "$nproc"
 make -C build install
+cp /usr/local/bin/HandBrakeCLI /usr/bin/HandBrakeCLI
 cd /
 rm -rf /tmp/handbrake
+apt-get clean
