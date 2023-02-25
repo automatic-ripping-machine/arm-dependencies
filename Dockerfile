@@ -54,7 +54,6 @@ VOLUME /etc/arm/config
 
 ###########################################################
 # install deps for ripper
-FROM deps-docker AS deps-ripper
 RUN install_clean \
         abcde \
         eyed3 \
@@ -66,10 +65,9 @@ RUN install_clean \
         glyrc \
         default-jre-headless \
         libavcodec-extra \
-        lsdvd
-
-# install libdvd-pkg
-RUN git clone https://code.videolan.org/videolan/libdvdcss && \
+        lsdvd libtool &&\
+    # install python reqs \
+    git clone https://code.videolan.org/videolan/libdvdcss && \
     cd libdvdcss && aclocal && autoreconf -i && \
     ./configure && \
     make -j32 && \
