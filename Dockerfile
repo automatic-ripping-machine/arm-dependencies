@@ -54,6 +54,7 @@ VOLUME /etc/arm/config
 
 ###########################################################
 # install deps for ripper
+FROM deps-docker AS deps-ripper
 RUN install_clean \
         abcde \
         eyed3 \
