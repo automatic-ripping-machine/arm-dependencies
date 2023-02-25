@@ -69,9 +69,12 @@ RUN install_clean \
         lsdvd
 
 # install libdvd-pkg
-RUN \
-    install_clean libdvd-pkg && \
-    dpkg-reconfigure libdvd-pkg
+RUN git clone https://code.videolan.org/videolan/libdvdcss && \
+    cd libdvdcss && aclocal && autoreconf -i && \
+    ./configure && \
+    make -j32 && \
+    make install && \
+    cd .. && rm -R libdvdcss
 
 # install python reqs
 COPY requirements.txt ./requirements.txt
