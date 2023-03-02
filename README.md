@@ -40,9 +40,3 @@ To base your docker container on `arm-dependencies`, add this to the top of your
 
 FROM automaticrippingmachine/arm-dependencies AS base
 ```
-
-To start the rsyslog service included in this container, add the following command before the command to run `armui.py` in your `Dockerfile`:
-```dockerfile
-CMD service rsyslog start
-
-```
