@@ -34,7 +34,15 @@ jobs:
               echo "github ref = ${{ github.ref }} 
               and ${{ steps.branch-name.outputs.current_branch }} 
               and ${{ github.GITHUB_HEAD_REF }}"
-              
+             
+      -
+          name: Set tag for non-default branch
+          if: steps.branch-name.outputs.is_default == 'false' && steps.branch-name.outputs.default_branch != ''
+          run: |
+                echo "Branch name is ${{ steps.branch-name.outputs.ref_branch }}"
+                echo "Main name is ${{ steps.branch-name.outputs.default_branch }}"
+                echo "TAG=${{ steps.branch-name.outputs.current_branch }}" >> $GITHUB_ENV
+                    
       - 
           run: git switch ${{ steps.branch-name.outputs.current_branch }}
           
