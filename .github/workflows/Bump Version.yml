@@ -2,10 +2,15 @@ name: "Version Increment"
 
 on:
   push:
+      # run whenever pushes or merges are done to a non-default branch
       branches:
           - '*'
           - '!main'
-  # Allows you to run this workflow manually from the Actions tab
+  pull_request:
+      # run whenever pushes are done to pull request
+      paths-ignore:
+        - 'VERSION'
+      # ... as long as the version file hasn't already been modified
   workflow_dispatch:
 
 jobs:
