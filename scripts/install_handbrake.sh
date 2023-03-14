@@ -25,8 +25,8 @@ echo -e "${RED}Finding current HandBrake version${NC}"
 HANDBRAKE_VERSION=$(curl --silent 'https://github.com/HandBrake/HandBrake/releases' | grep 'HandBrake/tree/*' | head -n 1 | sed -e 's/[^0-9\.]*//g')
 echo -e "${RED}Downloading HandBrake $HANDBRAKE_VERSION${NC}"
 
-# if architecture is arm64, install standard HandBrakeCLI and exit cleanly
-if [ "$(dpkg --print-architecture)" = "arm64" ]; then
+# if architecture is any flavor of arm, install standard HandBrakeCLI and exit cleanly
+if [ "$(dpkg --print-architecture)" = "arm.*" ]; then
     echo "Running on arm - using apt for HandBrakeCLI"
     exit 0
 fi
