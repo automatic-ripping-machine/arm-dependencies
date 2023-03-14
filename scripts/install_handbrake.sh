@@ -25,9 +25,6 @@ echo -e "${RED}Finding current HandBrake version${NC}"
 HANDBRAKE_VERSION=$(curl --silent 'https://github.com/HandBrake/HandBrake/releases' | grep 'HandBrake/tree/*' | head -n 1 | sed -e 's/[^0-9\.]*//g')
 echo -e "${RED}Downloading HandBrake $HANDBRAKE_VERSION${NC}"
 
-set -ex
-export PREFIX='/usr/local'
-
 # if architecture is arm64, install standard HandBrakeCLI and exit cleanly
 if [ "$(dpkg --print-architecture)" = "arm64" ]; then
     echo "Running on arm - using apt for HandBrakeCLI"
@@ -39,7 +36,7 @@ wget -O handbrake.tar.bz2.sig "https://github.com/HandBrake/HandBrake/releases/d
 wget -O handbrake.tar.bz2 "https://github.com/HandBrake/HandBrake/releases/download/$HANDBRAKE_VERSION/HandBrake-$HANDBRAKE_VERSION-source.tar.bz2"
 
 # https://handbrake.fr/openpgp.php or https://github.com/HandBrake/HandBrake/wiki/OpenPGP
-GNUPGHOME="$(mktemp -d)"; export GNUPGHOME; \
+GNUPGHOME="$(mktemp -d)" && export GNUPGHOME
 gpg --batch --keyserver keyserver.ubuntu.com --recv-keys '1629 C061 B3DD E7EB 4AE3  4B81 021D B8B4 4E4A 8645'; \
 gpg --batch --verify handbrake.tar.bz2.sig handbrake.tar.bz2; \
 rm -rf "$GNUPGHOME" handbrake.tar.bz2.sig
@@ -60,4 +57,3 @@ make -C build install
 cp /usr/local/bin/HandBrakeCLI /usr/bin/HandBrakeCLI
 cd /
 rm -rf /tmp/handbrake
-#apt-get clean
