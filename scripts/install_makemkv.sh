@@ -2,8 +2,8 @@
 
 # Auto-grab latest version
 echo -e "${RED}Finding current MakeMKV version${NC}"
-MAKEMKV_VERSION=$(curl -s https://www.makemkv.com/download/ | grep -o [0-9.]*.txt | sed 's/.txt//')
-echo -e "${RED}Downloading MakeMKV $mmv sha, bin, and oss${NC}"
+MAKEMKV_VERSION=$(curl -s https://www.makemkv.com/download/ | grep -o "[0-9.]*.txt" | sed 's/.txt//')
+echo -e "${RED}Downloading MakeMKV $MAKEMKV_VERSION sha, bin, and oss${NC}"
 
 # Setup taken from https://github.com/tianon/dockerfiles/blob/master/makemkv/Dockerfile
 # The Expat/MIT License
@@ -30,17 +30,17 @@ echo -e "${RED}Downloading MakeMKV $mmv sha, bin, and oss${NC}"
 set -eux
 # update-alternatives: error: error creating symbolic link '/usr/share/man/man1/rmid.1.gz.dpkg-tmp': No such file or directory
 mkdir -p /usr/share/man/man1
-apt-get update
-apt-get install -y --no-install-recommends openjdk-11-jre-headless
-rm -rf /var/lib/apt/lists/*
+#apt-get update
+#apt-get install -y --no-install-recommends openjdk-11-jre-headless
+#rm -rf /var/lib/apt/lists/*
 
 set -ex
 savedAptMark="$(apt-mark showmanual)"
-apt-get update
-apt-get -q update && apt-get -qy install --no-install-recommends ca-certificates g++ gcc gnupg dirmngr libavcodec-dev libexpat-dev libssl-dev make pkg-config qtbase5-dev wget zlib1g-dev \
-    && apt-get -qy autoremove \
-    && apt-get clean \
-    && rm -r /var/lib/apt/lists/*
+#apt-get update
+#apt-get -q update && apt-get -qy install --no-install-recommends ca-certificates g++ gcc gnupg dirmngr libavcodec-dev libexpat-dev libssl-dev make pkg-config qtbase5-dev wget zlib1g-dev \
+#    && apt-get -qy autoremove \
+#    && apt-get clean \
+#    && rm -r /var/lib/apt/lists/*
 wget -O 'sha256sums.txt.sig' "https://www.makemkv.com/download/makemkv-sha-${MAKEMKV_VERSION}.txt"
 export GNUPGHOME="$(mktemp -d)"
 gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 2ECF23305F1FC0B32001673394E3083A18042697
@@ -82,4 +82,4 @@ find /usr/local -type f -executable -exec ldd '{}' ';' \
 	| sort -u \
 	| xargs -r apt-mark manual \
 
-apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
+#apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
