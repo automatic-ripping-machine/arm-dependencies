@@ -61,7 +61,8 @@ done
 
 rm sha256sums.txt
 apt-mark auto '.*' > /dev/null
-[ -z "$savedAptMark" ] || apt-mark manual "$savedAptMark"
+# shellcheck disable=SC2086
+[ -z "$savedAptMark" ] || apt-mark manual $savedAptMark # double quoting this var breaks the build
 find /usr/local -type f -executable -exec ldd '{}' ';' \
 	| awk '/=>/ { print $(NF-1) }' \
 	| sort -u \
