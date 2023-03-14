@@ -12,7 +12,7 @@ apt install -yq --no-install-recommends ca-certificates g++ gcc gnupg dirmngr li
 
 # handbrake deps
 # if architecture is arm64, install standard HandBrakeCLI and exit cleanly
-if [ "$(dpkg --print-architecture)" = "arm64" ]; then
+if [ "$(dpkg --print-architecture)" = "arm.*" ]; then
     echo "Running on arm - using apt for HandBrakeCLI"
     apt install -yqq handbrake-cli
     cp /usr/bin/HandBrakeCLI /usr/local/bin/HandBrakeCLI
@@ -20,6 +20,7 @@ if [ "$(dpkg --print-architecture)" = "arm64" ]; then
 fi
 
 apt install -yq autoconf automake autopoint appstream build-essential cmake git libass-dev libbz2-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev libmp3lame-dev libnuma-dev libogg-dev libopus-dev libsamplerate-dev libspeex-dev libtheora-dev libtool libtool-bin libturbojpeg0-dev libvorbis-dev libx264-dev libxml2-dev libvpx-dev m4 make meson nasm ninja-build patch pkg-config tar zlib1g-dev clang libavcodec-dev  libva-dev libdrm-dev
+
 
 # cleanup
 apt autoremove
