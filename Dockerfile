@@ -102,10 +102,10 @@ HEALTHCHECK --interval=5m --timeout=15s --start-period=30s CMD /healthcheck.sh
 ARG VERSION
 ARG BUILD_DATE
 # set metadata
-LABEL org.opencontainers.image.source=https://github.com/1337-server/arm-dependencies.git
-LABEL org.opencontainers.image.url=https://github.com/1337-server/arm-dependencies
-LABEL org.opencontainers.image.description="Dependencies for Automatic ripping machine"
-LABEL org.opencontainers.image.documentation=https://raw.githubusercontent.com/1337-server/arm-dependencies/main/README.md
+LABEL org.opencontainers.image.source=https://github.com/automatic-ripping-machine/arm-dependencies.git
+LABEL org.opencontainers.image.url=https://github.com/automatic-ripping-machine/arm-dependencies
+LABEL org.opencontainers.image.description="Dependencies for Automatic Ripping Machine"
+LABEL org.opencontainers.image.documentation=https://raw.githubusercontent.com/automatic-ripping-machine/arm-dependencies/main/README.md
 LABEL org.opencontainers.image.license=MIT
 LABEL org.opencontainers.image.version=$VERSION
 LABEL org.opencontainers.image.created=$BUILD_DATE
