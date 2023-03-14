@@ -26,14 +26,11 @@ echo -e "${RED}Finding current MakeMKV version${NC}"
 MAKEMKV_VERSION=$(curl -s https://www.makemkv.com/download/ | grep -o "[0-9.]*.txt" | sed 's/.txt//')
 echo -e "${RED}Downloading MakeMKV $MAKEMKV_VERSION sha, bin, and oss${NC}"
 
-set -eux
-mkdir -p /usr/share/man/man1
-
 set -ex
 savedAptMark="$(apt-mark showmanual)"
 
 wget -O 'sha256sums.txt.sig' "https://www.makemkv.com/download/makemkv-sha-${MAKEMKV_VERSION}.txt"
-export GNUPGHOME="$(mktemp -d)"
+GNUPGHOME="$(mktemp -d)" && export GNUPGHOME
 gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 2ECF23305F1FC0B32001673394E3083A18042697
 gpg --batch --decrypt --output sha256sums.txt sha256sums.txt.sig
 gpgconf --kill all
