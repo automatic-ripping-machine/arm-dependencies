@@ -82,7 +82,10 @@ RUN pip3 install --ignore-installed --prefer-binary -r ./requirements.txt
 ###########################################################
 # install makemkv and handbrake
 FROM deps-ripper AS install-makemkv-handbrake
-#RUN apt update && install_clean handbrake-cli
+COPY ./scripts/install_mkv_hb_deps.sh /install_mkv_hb_deps.sh
+RUN chmod +x /install_mkv_hb_deps.sh && sleep 1 && \
+    /install_mkv_hb_deps.sh
+
 COPY ./scripts/install_handbrake.sh /install_handbrake.sh
 RUN chmod +x /install_handbrake.sh && sleep 1 && \
     /install_handbrake.sh
