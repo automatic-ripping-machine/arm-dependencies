@@ -26,7 +26,7 @@ HANDBRAKE_VERSION=$(curl --silent 'https://github.com/HandBrake/HandBrake/releas
 echo -e "${RED}Downloading HandBrake $HANDBRAKE_VERSION${NC}"
 
 # if architecture is any flavor of arm, install standard HandBrakeCLI and exit cleanly
-if [ "$(dpkg --print-architecture)" = "arm.*" ]; then
+if [[ $(dpkg --print-architecture) =~ arm.* ]]; then
     echo "Running on arm - using apt for HandBrakeCLI"
     exit 0
 fi

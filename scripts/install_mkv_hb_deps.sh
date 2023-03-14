@@ -11,8 +11,8 @@ apt install -yq --no-install-recommends ca-certificates g++ gcc gnupg dirmngr li
 
 
 # handbrake deps
-# if architecture is arm64, install standard HandBrakeCLI and exit cleanly
-if [ "$(dpkg --print-architecture)" = "arm.*" ]; then
+# if architecture is any flavor of arm, install standard HandBrakeCLI and exit cleanly
+if [[ $(dpkg --print-architecture) =~ arm.* ]]; then
     echo "Running on arm - using apt for HandBrakeCLI"
     apt install -yqq handbrake-cli
     cp /usr/bin/HandBrakeCLI /usr/local/bin/HandBrakeCLI
