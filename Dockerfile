@@ -94,6 +94,7 @@ RUN chmod +x /install_handbrake.sh && sleep 1 && \
 COPY ./scripts/install_makemkv.sh /install_makemkv.sh
 RUN chmod +x /install_makemkv.sh && sleep 1 && \
     /install_makemkv.sh
+
 # clean up apt
 RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
