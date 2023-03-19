@@ -61,12 +61,17 @@ RUN install_clean \
         atomicparsley \
         cdparanoia \
         eject \
+        eyeD3 \
         ffmpeg \
         flac \
         glyrc \
         default-jre-headless \
+        id3 \
+        id3v2 \
+        lame \
         libavcodec-extra \
-        lsdvd
+        lsdvd \
+        mp3gain
 
 # install libdvd-pkg
 RUN \
