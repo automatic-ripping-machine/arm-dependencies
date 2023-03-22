@@ -57,7 +57,6 @@ VOLUME /etc/arm/config
 FROM deps-docker AS deps-ripper
 RUN install_clean \
         abcde \
-        eyed3 \
         atomicparsley \
         cdparanoia \
         eject \
