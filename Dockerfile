@@ -57,10 +57,10 @@ VOLUME /etc/arm/config
 FROM deps-docker AS deps-ripper
 RUN install_clean \
         abcde \
+        eyed3 \
         atomicparsley \
         cdparanoia \
         eject \
-        eyeD3 \
         ffmpeg \
         flac \
         glyrc \
@@ -69,8 +69,7 @@ RUN install_clean \
         id3v2 \
         lame \
         libavcodec-extra \
-        lsdvd \
-        mp3gain
+        lsdvd
 
 # install libdvd-pkg
 RUN \
