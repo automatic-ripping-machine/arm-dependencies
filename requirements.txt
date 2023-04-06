@@ -40,5 +40,5 @@ tinydownload==0.1.0
 urllib3==1.26.15
 wcwidth==0.2.6
 Werkzeug==2.0.3 # broken
-WTForms==3.0.0 # broken
+WTForms==3.0.1 # broken
 xmltodict==0.13.0
