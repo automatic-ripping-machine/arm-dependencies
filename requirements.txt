@@ -1,5 +1,5 @@
 alembic==1.4.3
-apprise==0.9.9
+apprise==1.4.5
 bcrypt==3.2.2 # Newer versions dont have Wheel
 beautifulsoup4==4.11.1
 certifi==2022.12.7
