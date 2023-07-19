@@ -65,6 +65,9 @@ RUN install_clean \
         flac \
         glyrc \
         default-jre-headless \
+        id3 \
+        id3v2 \
+        lame \
         libavcodec-extra \
         lsdvd
 
