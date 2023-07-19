@@ -11,7 +11,7 @@ Flask==2.2.5 # broken
 Flask-Cors==4.0.0
 Flask-Login==0.6.2
 Flask-Migrate==4.0.4
-Flask-SQLAlchemy==3.0.3 # broken
+Flask-SQLAlchemy==3.0.5 # broken
 Flask-WTF==1.1.1
 greenlet==2.0.2
 idna==3.4
