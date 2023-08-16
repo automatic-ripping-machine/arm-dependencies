@@ -1,4 +1,4 @@
-alembic==1.11.1
+alembic==1.11.3
 apprise==1.4.5
 bcrypt==3.2.2 # Newer versions dont have Wheel
 beautifulsoup4==4.12.2
