@@ -46,7 +46,7 @@ RUN bash /root/add-ppa.sh ppa:mc3man/focal6
 FROM base AS deps-docker
 RUN install_clean gosu
 
-VOLUME /home/arm/music
+VOLUME /home/arm/Music
 VOLUME /home/arm/logs
 VOLUME /home/arm/media
 VOLUME /etc/arm/config
@@ -78,7 +78,7 @@ RUN \
 
 # install python reqs
 COPY requirements.txt ./requirements.txt
-RUN pip3 install --upgrade pip wheel setuptools
+RUN pip3 install --upgrade pip wheel setuptools psutil pyudev
 RUN pip3 install --ignore-installed --prefer-binary -r ./requirements.txt
 
 
