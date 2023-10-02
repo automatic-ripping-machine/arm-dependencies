@@ -37,7 +37,7 @@ six==1.16.0
 soupsieve==2.5
 SQLAlchemy==2.0.19
 tinydownload==0.1.0
-urllib3==2.0.4 # broken
+urllib3==2.0.6 # broken
 wcwidth==0.2.6
 Werkzeug==2.3.6
 WTForms==3.0.1
