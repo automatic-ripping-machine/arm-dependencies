@@ -5,7 +5,7 @@ beautifulsoup4==4.12.2
 certifi==2023.7.22
 cffi==1.15.1
 click==8.1.7
-charset-normalizer==3.2.0
+charset-normalizer==3.3.1
 discid==1.2.0
 Flask==2.2.5 # broken
 Flask-Cors==4.0.0
