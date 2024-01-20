@@ -71,7 +71,7 @@ jobs:
                     echo "VERSION=pr${GITHUB_REF##*/}" >> $GITHUB_ENV
             -
                 name: Set up QEMU
-                uses: docker/setup-qemu-action@v2
+                uses: docker/setup-qemu-action@v3
                 with:
                     platforms: all
             # Workaround: https://github.com/docker/build-push-action/issues/461
