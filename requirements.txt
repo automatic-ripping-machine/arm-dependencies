@@ -41,5 +41,5 @@ urllib3==2.0.4 # broken
 waitress==2.1.2
 wcwidth==0.2.6
 Werkzeug==2.3.6
-WTForms==3.0.1
+WTForms==3.1.2
 xmltodict==0.13.0
