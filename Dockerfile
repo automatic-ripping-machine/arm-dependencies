@@ -46,11 +46,6 @@ RUN bash /root/add-ppa.sh ppa:mc3man/focal6
 FROM base AS deps-docker
 RUN install_clean gosu
 
-VOLUME /home/arm/Music
-VOLUME /home/arm/logs
-VOLUME /home/arm/media
-VOLUME /etc/arm/config
-
 
 ###########################################################
 # install deps for ripper
