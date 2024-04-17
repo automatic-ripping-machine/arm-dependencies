@@ -26,7 +26,7 @@ netifaces==0.11.0
 oauthlib==3.2.2
 prettytable==3.10.0
 psutil==5.9.8
-pycparser==2.21
+pycparser==2.22
 pycurl==7.45.2
 pydvdid==1.1
 pyudev==0.24.1
