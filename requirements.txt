@@ -27,7 +27,7 @@ oauthlib==3.2.2
 prettytable==3.10.0
 psutil==5.9.8
 pycparser==2.21
-pycurl==7.45.2
+pycurl==7.45.3
 pydvdid==1.1
 pyudev==0.24.1
 PyYAML==6.0.1
