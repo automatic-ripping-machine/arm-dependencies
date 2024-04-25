@@ -1,7 +1,7 @@
 alembic==1.13.1
 apprise==1.7.6
 bcrypt==3.2.2 # Newer versions dont have Wheel
-beautifulsoup4==4.12.2
+beautifulsoup4==4.12.3
 certifi==2023.7.22
 cffi==1.16.0
 click==8.1.7
