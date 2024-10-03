@@ -64,7 +64,8 @@ RUN install_clean \
         id3v2 \
         lame \
         libavcodec-extra \
-        lsdvd
+        lsdvd \
+        vorbis-tools
 
 # install libdvd-pkg
 RUN \
