@@ -1,6 +1,6 @@
 ###########################################################
 # base image, used for build stages and final images
-FROM phusion/baseimage:focal-1.2.0 AS base
+FROM phusion/baseimage:jammy-1.0.4 AS base
 RUN mkdir /opt/arm
 WORKDIR /opt/arm
 
@@ -36,10 +36,6 @@ RUN install_clean \
         vim \
         # arm extra requirements
         scons swig libzbar-dev libzbar0
-
-# add the PPAs we need, using add-ppa.sh since add-apt-repository is unavailable
-COPY ./scripts/add-ppa.sh /root/add-ppa.sh
-RUN bash /root/add-ppa.sh ppa:mc3man/focal6
 
 ###########################################################
 # install deps specific to the docker deployment
