@@ -61,7 +61,8 @@ RUN install_clean \
         lame \
         libavcodec-extra \
         lsdvd \
-        vorbis-tools
+        vorbis-tools \
+        opus-tools
 
 # install libdvd-pkg
 RUN \
