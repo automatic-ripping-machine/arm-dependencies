@@ -25,7 +25,6 @@ apt install -yq autoconf automake autopoint appstream build-essential cmake git 
 curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y
 source "$HOME/.cargo/env"
 cargo install cargo-c
-rustup target add x86_64-pc-windows-gnu
 
 # cleanup
 apt autoremove
