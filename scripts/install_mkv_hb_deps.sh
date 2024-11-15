@@ -22,7 +22,7 @@ fi
 apt install -yq autoconf automake autopoint appstream build-essential cmake git libass-dev libbz2-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev libmp3lame-dev libnuma-dev libogg-dev libopus-dev libsamplerate-dev libspeex-dev libtheora-dev libtool libtool-bin libturbojpeg0-dev libvorbis-dev libx264-dev libxml2-dev libvpx-dev m4 make meson nasm ninja-build patch pkg-config tar zlib1g-dev clang libavcodec-dev  libva-dev libdrm-dev
 
 # libdovi (Dolby Vision) support
-curl https://sh.rustup.rs -sSf | sh
+curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y
 source "$HOME/.cargo/env"
 cargo install cargo-c
 rustup target add x86_64-pc-windows-gnu
