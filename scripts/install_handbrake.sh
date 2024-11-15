@@ -48,6 +48,10 @@ tar --extract \
 	"HandBrake-$HANDBRAKE_VERSION"
 rm handbrake.tar.bz2
 
+# set env to load rustup for libdovi and set build target
+source "$HOME/.cargo/env"
+rustup target add x86_64-pc-windows-gnu
+
 # build
 cd /tmp/handbrake
 nproc="$(nproc)"
@@ -56,4 +60,7 @@ make -C build -j "$nproc"
 make -C build install
 cp /usr/local/bin/HandBrakeCLI /usr/bin/HandBrakeCLI
 cd /
+
+# cleanup
+rm -rf "$HOME/.cargo/"
 rm -rf /tmp/handbrake
