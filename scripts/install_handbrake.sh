@@ -48,12 +48,23 @@ tar --extract \
 	"HandBrake-$HANDBRAKE_VERSION"
 rm handbrake.tar.bz2
 
+# libdovi (Dolby Vision) support
+curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y
+source "$HOME/.cargo/env"
+cargo install cargo-c
+rustup target add x86_64-pc-windows-gnu
+
 # build
 cd /tmp/handbrake
 nproc="$(nproc)"
-./configure --disable-gtk --enable-qsv --enable-vce --launch-jobs="$nproc" --launch
+./configure --disable-gtk --enable-qsv --enable-vce --enable-libdovi --launch-jobs="$nproc" --launch
 make -C build -j "$nproc"
 make -C build install
 cp /usr/local/bin/HandBrakeCLI /usr/bin/HandBrakeCLI
 cd /
+
+# cleanup
+rustup self uninstall -y
+rm -rf "$HOME/.cargo/"
+rm -rf /root/.rustup
 rm -rf /tmp/handbrake
