@@ -64,6 +64,7 @@ cp /usr/local/bin/HandBrakeCLI /usr/bin/HandBrakeCLI
 cd /
 
 # cleanup
+rustup self uninstall -y
 rm -rf "$HOME/.cargo/"
 rm -rf /root/.rustup
 rm -rf /tmp/handbrake
