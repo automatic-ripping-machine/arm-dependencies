@@ -30,4 +30,3 @@ cargo install cargo-c
 apt autoremove
 apt clean
 rm -r /var/lib/apt/lists/*
-rm -rf /root/.rustup
