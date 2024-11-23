@@ -48,8 +48,10 @@ tar --extract \
 	"HandBrake-$HANDBRAKE_VERSION"
 rm handbrake.tar.bz2
 
-# set env to load rustup for libdovi and set build target
+# libdovi (Dolby Vision) support
+curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y
 source "$HOME/.cargo/env"
+cargo install cargo-c
 rustup target add x86_64-pc-windows-gnu
 
 # build
