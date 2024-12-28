@@ -104,7 +104,7 @@ jobs:
             -
                 name: Extract Docker metadata
                 id: meta
-                uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81
+                uses: docker/metadata-action@369eb591f429131d6889c46b94e711f089e6ca96
                 with:
                     images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
             -
@@ -128,7 +128,7 @@ jobs:
             -
                 name: Build and push Docker image
                 id: build-and-push
-                uses: docker/build-push-action@v5
+                uses: docker/build-push-action@v6
                 with:
                     context: .
                     push: ${{ github.event_name != 'pull_request' }}

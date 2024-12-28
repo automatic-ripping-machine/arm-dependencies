@@ -1,6 +1,6 @@
 ###########################################################
 # base image, used for build stages and final images
-FROM phusion/baseimage:focal-1.2.0 AS base
+FROM phusion/baseimage:jammy-1.0.4 AS base
 RUN mkdir /opt/arm
 WORKDIR /opt/arm
 
@@ -12,6 +12,10 @@ RUN \
 # create an arm group(gid 1000) and an arm user(uid 1000), with password logon disabled
 RUN groupadd -g 1000 arm \
     && useradd -rm -d /home/arm -s /bin/bash -g arm -G video,cdrom -u 1000 arm
+
+# enable support for Arch Linux and derivatives, who use a different user group for optical drive permissions
+RUN groupadd -g 990 optical \
+    && usermod -aG optical arm
 
 # set the default environment variables
 # UID and GID are not settable as of https://github.com/phusion/baseimage-docker/pull/86, as doing so would
@@ -37,10 +41,6 @@ RUN install_clean \
         # arm extra requirements
         scons swig libzbar-dev libzbar0
 
-# add the PPAs we need, using add-ppa.sh since add-apt-repository is unavailable
-COPY ./scripts/add-ppa.sh /root/add-ppa.sh
-RUN bash /root/add-ppa.sh ppa:mc3man/focal6
-
 ###########################################################
 # install deps specific to the docker deployment
 FROM base AS deps-docker
@@ -65,7 +65,8 @@ RUN install_clean \
         lame \
         libavcodec-extra \
         lsdvd \
-        vorbis-tools
+        vorbis-tools \
+        opus-tools
 
 # install libdvd-pkg
 RUN \
