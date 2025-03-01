@@ -21,10 +21,27 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+## ARM Modification of base script
+# Define colors
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+NC="\033[0m"
+
 # Auto-grab latest version
-echo -e "${RED}Finding current MakeMKV version${NC}"
-MAKEMKV_VERSION=$(curl -s https://www.makemkv.com/download/ | grep -o "[0-9.]*.txt" | sed 's/.txt//')
-echo -e "${RED}Downloading MakeMKV $MAKEMKV_VERSION sha, bin, and oss${NC}"
+echo -e "${GREEN}Finding current MakeMKV version${NC}"
+
+# Check if VERSION_MAKEMKV file exists at root
+if [[ -f "$(git rev-parse --show-toplevel)/VERSION_MAKEMKV" ]]; then
+    MAKEMKV_VERSION=$(cat "$(git rev-parse --show-toplevel)/VERSION_MAKEMKV")
+    echo -e "Using MakeMKV version from VERSION_MAKEMKV: ${GREEN}$MAKEMKV_VERSION${NC}"
+else
+    echo -e "${RED}ERROR:${NC} VERSION_MAKEMKV file not found. Fetching latest version."
+    MAKEMKV_VERSION=$(curl -s https://www.makemkv.com/download/ | grep -o "[0-9.]*.txt" | sed 's/.txt//')
+    echo -e "Using MakeMKV version direct from MakeMKV: ${GREEN}$MAKEMKV_VERSION${NC}"
+fi
+
+echo -e "${GREEN}Downloading MakeMKV $MAKEMKV_VERSION sha, bin, and oss${NC}"
+## Finish ARM Modification
 
 set -ex
 savedAptMark="$(apt-mark showmanual)"
