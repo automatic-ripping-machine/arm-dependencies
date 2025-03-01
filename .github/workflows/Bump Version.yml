@@ -1,12 +1,10 @@
 name: "Version Increment"
 
 on:
-  push:
-      # run whenever pushes or merges are done to a non-default branch
-      branches:
-          - '*'
-          - '!main'
-  workflow_dispatch:
+  pull_request:
+    branches:
+      - main              # Only run when a PR is raised against main
+  workflow_dispatch:      # Allows manual triggering
 
 jobs:
   version:
