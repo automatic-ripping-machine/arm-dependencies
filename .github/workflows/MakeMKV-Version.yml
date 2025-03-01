@@ -40,14 +40,14 @@ jobs:
             CURRENT_VERSION="0.0.0"
           fi
           
-          echo "Current version: $CURRENT_VERSION"
-          echo "Latest version: $MAKEMKV_VERSION"
-          
           if [[ "$CURRENT_VERSION" == "$MAKEMKV_VERSION" ]]; then
             echo "No new version found."
+            echo -e "Current version: ${\032[0m} $CURRENT_VERSION ${\033[0m}"
             echo "skip=true" >> $GITHUB_ENV
           else
             echo "New version available."
+            echo -e "ARM version: ${\034[0m} $CURRENT_VERSION ${\033[0m}"
+            echo -e "Latest MakeMKV version: ${\032[0m} $MAKEMKV_VERSION$ ${\033[0m}"
             echo "skip=false" >> $GITHUB_ENV
           fi
           
@@ -56,7 +56,10 @@ jobs:
       - name: Fetch MakeMKV version history
         if: env.skip == 'false'
         run: |
-          HISTORY=$(curl -s https://www.makemkv.com/download/history.html | grep -A 3 "MakeMKV v$MAKEMKV_VERSION" | sed 's/<[^>]*>//g')
+          HISTORY=curl -s https://www.makemkv.com/download/history.html \
+            | sed -n -e "/MakeMKV v${MAKEMKV_VERSION}/,/MakeMKV v/ p" \
+            | sed -e '$d' \
+            | sed 's/<[^>]*>//g'
           echo "Version History:"
           echo "$HISTORY"
           echo "$HISTORY" > makemkv_history.txt
