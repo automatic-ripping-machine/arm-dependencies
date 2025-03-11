@@ -35,7 +35,7 @@ requests-oauthlib==1.3.1
 robobrowser==0.5.3
 six==1.16.0
 soupsieve==2.5
-SQLAlchemy==2.0.19
+SQLAlchemy==2.0.39
 tinydownload==0.1.0
 urllib3==2.3.0 # broken
 waitress==2.1.2
