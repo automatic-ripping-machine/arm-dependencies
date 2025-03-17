@@ -1,0 +1,26 @@
+name: Create or Update Staging PR
+
+on:
+  push:
+    branches:
+      - staging
+  workflow_dispatch:
+
+jobs:
+  release_pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create Release PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: release
+          base: main
+          title: "[Release]: ARM-Dependencies new release"
+          body: "This PR batches all merged changes into a single release."
+          labels: release
+          draft: false
+          delete-branch: true

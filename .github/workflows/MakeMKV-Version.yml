@@ -1,0 +1,111 @@
+#
+# Automatic-Ripping-Machine
+#  GitHub Workflow
+#  Daily checks the MakeMKV version and compares against current MakeMKV Version
+#  Raise a PR when a new version is found with MakeMKV Version info in the PR
+#
+
+name: Check MakeMKV Version
+
+on:
+  schedule:
+    - cron: '0 0 * * *'   # Runs daily at midnight UTC
+  workflow_dispatch:      # Allows manual triggering
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check-and-update:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get latest MakeMKV version
+        run: |
+          echo "Finding current MakeMKV version"
+          MAKEMKV_VERSION=$(curl -s https://www.makemkv.com/download/ | grep -o "[0-9.]*.txt" | sed 's/.txt//')
+          echo "Latest version found: $MAKEMKV_VERSION"
+          echo "MAKEMKV_VERSION=$MAKEMKV_VERSION" >> $GITHUB_ENV
+
+      - name: Check current version
+        id: check_version
+        run: |
+          if [[ -f VERSION_MAKEMKV ]]; then
+            CURRENT_VERSION=$(cat VERSION_MAKEMKV)
+          else
+            echo -e "\033[0;31mERROR:\033[0m VERSION_MAKEMKV file not found. Assuming new version required."
+            CURRENT_VERSION="0.0.0"
+          fi
+          
+          if [[ "$CURRENT_VERSION" == "$MAKEMKV_VERSION" ]]; then
+            echo "No new version found."
+            echo -e "Current version: \033[0;32m$CURRENT_VERSION\033[0m"
+            echo "skip=true" >> $GITHUB_ENV
+          else
+            echo "New version available."
+            echo -e "ARM version: \033[0;34m$CURRENT_VERSION\033[0m"
+            echo -e "Latest MakeMKV version: \033[0;32m$MAKEMKV_VERSION\033[0m"
+            echo "skip=false" >> $GITHUB_ENV
+          fi
+          
+          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
+
+      - name: Fetch MakeMKV version history
+        if: env.skip == 'false'
+        run: |
+          HISTORY=curl -s https://www.makemkv.com/download/history.html \
+            | sed -n -e "/MakeMKV v${MAKEMKV_VERSION}/,/MakeMKV v/ p" \
+            | sed -e '$d' \
+            | sed 's/<[^>]*>//g'
+          echo "Version History:"
+          echo "$HISTORY"
+          echo "$HISTORY" > makemkv_history.txt
+          echo "VERSION_HISTORY<<EOF" >> $GITHUB_ENV
+          echo "$HISTORY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Update VERSION_MAKEMKV file
+        if: env.skip == 'false'
+        run: |
+          if git ls-remote --exit-code --heads origin "update-makemkv-${MAKEMKV_VERSION}"; then
+            echo "Branch update-makemkv-${MAKEMKV_VERSION} already exists. Cancelling Job."
+            echo "branch_exists=true" >> $GITHUB_ENV
+            exit 0
+          fi
+          echo "$MAKEMKV_VERSION" > VERSION_MAKEMKV
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b update-makemkv-$MAKEMKV_VERSION
+          git add VERSION_MAKEMKV
+          git commit -m "Update MakeMKV version to $MAKEMKV_VERSION"
+          git push origin "update-makemkv-${MAKEMKV_VERSION}"         
+
+      - name: Create Pull Request
+        if: env.skip == 'false' && env.branch_exists != 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: update-makemkv-${{ env.MAKEMKV_VERSION }}
+          title: "[FEATURE] Update MakeMKV to ${{ env.MAKEMKV_VERSION }} from ${{ env.CURRENT_VERSION }}"
+          base: main
+          labels: MakeMKV
+          body: |
+            ## MakeMKV Update
+            A new version of MakeMKV has been released
+            Old Version: ${{ env.CURRENT_VERSION }}
+            New Version: ${{ env.MAKEMKV_VERSION }}
+            
+            This PR updates `VERSION_MAKEMKV` to reflect the latest release.
+
+            ### Version History:
+            ```
+            ${{ env.VERSION_HISTORY }}
+            ```
+            
+            PR automatically created by GitHub Workflow.
+            Do not make any commits against branch `update-makemkv-${{ env.MAKEMKV_VERSION }}`.
+            
+            Commits made against this branch will cause the script to fail.
