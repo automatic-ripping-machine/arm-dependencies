@@ -57,16 +57,13 @@ jobs:
       - name: Fetch MakeMKV version history
         if: env.skip == 'false'
         run: |
-          HISTORY=curl -s https://www.makemkv.com/download/history.html \
+          HISTORY=$(curl -s https://www.makemkv.com/download/history.html \
             | sed -n -e "/MakeMKV v${MAKEMKV_VERSION}/,/MakeMKV v/ p" \
             | sed -e '$d' \
-            | sed 's/<[^>]*>//g'
+            | sed 's/<[^>]*>//g')
           echo "Version History:"
           echo "$HISTORY"
-          echo "$HISTORY" > makemkv_history.txt
-          echo "VERSION_HISTORY<<EOF" >> $GITHUB_ENV
           echo "$HISTORY" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
 
       - name: Update VERSION_MAKEMKV file
         if: env.skip == 'false'
@@ -76,10 +73,11 @@ jobs:
             echo "branch_exists=true" >> $GITHUB_ENV
             exit 0
           fi
-          echo "$MAKEMKV_VERSION" > VERSION_MAKEMKV
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b update-makemkv-$MAKEMKV_VERSION
+          echo "$MAKEMKV_VERSION" > VERSION_MAKEMKV
+          echo "$HISTORY" > makemkv_history.txt
           git add VERSION_MAKEMKV
           git commit -m "Update MakeMKV version to $MAKEMKV_VERSION"
           git push origin "update-makemkv-${MAKEMKV_VERSION}"         
@@ -108,4 +106,4 @@ jobs:
             PR automatically created by GitHub Workflow.
             Do not make any commits against branch `update-makemkv-${{ env.MAKEMKV_VERSION }}`.
             
-            Commits made against this branch will cause the script to fail.
+            Commits made against this branch may cause the script to fail.
