@@ -19,7 +19,7 @@ permissions:
 jobs:
   check-and-update:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    #if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -68,7 +68,7 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_ENV"
 
-      - name: Update VERSION_MAKEMKV file
+      - name: Create new git branch with MakeMKV Version
         if: env.skip == 'false'
         run: |
           if git ls-remote --exit-code --heads origin "update-makemkv-${{ env.MAKEMKV_VERSION }}"; then
@@ -83,8 +83,7 @@ jobs:
           cat <<EOF > makemkv_history.txt
           ${{ env.VERSION_HISTORY }}
           EOF
-          git add VERSION_MAKEMKV
-          git add makemkv_history.txt
+          git add .
           git commit -m "Update MakeMKV version to ${{ env.MAKEMKV_VERSION }}"
           git push origin "update-makemkv-${{ env.MAKEMKV_VERSION }}"         
 
