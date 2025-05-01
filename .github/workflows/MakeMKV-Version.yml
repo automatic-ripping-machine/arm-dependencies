@@ -80,7 +80,9 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b update-makemkv-${{ env.MAKEMKV_VERSION }}
           echo ${{ env.MAKEMKV_VERSION }} > VERSION_MAKEMKV
-          echo ${{ env.VERSION_HISTORY }} > makemkv_history.txt
+          cat <<EOF > makemkv_history.txt
+          ${{ env.VERSION_HISTORY }}
+          EOF
           git add VERSION_MAKEMKV
           git add makemkv_history.txt
           git commit -m "Update MakeMKV version to ${{ env.MAKEMKV_VERSION }}"
