@@ -1,4 +1,4 @@
-curl --fail "http://$(hostname -i):8080" || exit 1
+curl --fail "http://$(hostname -i | awk '${print $1}'):8080" || exit 1
 ps -e | pgrep systemd-udevd || exit 1
 makemkvcon | grep www.makemkv.com/developers || exit 1
 HandBrakeCLI --version || exit 1
