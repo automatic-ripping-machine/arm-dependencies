@@ -1,1 +1,14 @@
+MakeMKV v1.18.1 (5.4.2025)
 
+    Bugfix for 1.18.0
+
+MakeMKV v1.18.0 (4.4.2025)
+
+    Added support for AACS v82
+    Improved handling for discs with mastering errors
+    Fixed crash on Mac OS 15.4
+
+MakeMKV v1.17.9 (1.2.2025)
+
+    Version bump, no changes
+    Updated translatio
