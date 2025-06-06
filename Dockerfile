@@ -78,7 +78,6 @@ COPY requirements.txt ./requirements.txt
 RUN pip3 install --upgrade pip wheel setuptools psutil pyudev
 RUN pip3 install --ignore-installed --prefer-binary -r ./requirements.txt
 
-
 ###########################################################
 # install makemkv and handbrake
 FROM deps-ripper AS install-makemkv-handbrake
@@ -102,6 +101,13 @@ RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 COPY scripts/healthcheck.sh /healthcheck.sh
 RUN chmod +x /healthcheck.sh
 HEALTHCHECK --interval=5m --timeout=15s --start-period=30s CMD /healthcheck.sh
+
+# Set Timezone data
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Etc/UTC
+RUN install_clean tzdata && \
+    ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && \
+    dpkg-reconfigure --frontend noninteractive tzdata
 
 ARG VERSION
 ARG BUILD_DATE
