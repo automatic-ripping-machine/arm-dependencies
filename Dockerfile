@@ -65,6 +65,7 @@ RUN install_clean \
         lame \
         libavcodec-extra \
         lsdvd \
+        mkcue \
         vorbis-tools \
         opus-tools
 
