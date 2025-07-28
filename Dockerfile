@@ -67,7 +67,8 @@ RUN install_clean \
         lsdvd \
         mkcue \
         vorbis-tools \
-        opus-tools
+        opus-tools \
+        fdkaac
 
 # install libdvd-pkg
 RUN \
