@@ -21,7 +21,7 @@ prettytable==3.10.0
 psutil==6.1.1
 pydvdid==1.1
 PyYAML==6.0.2
-pyudev==0.24.3
+pyudev==0.24.4
 requests==2.32.3
 SQLAlchemy==2.0.19
 urllib3==2.3.0 # broken
