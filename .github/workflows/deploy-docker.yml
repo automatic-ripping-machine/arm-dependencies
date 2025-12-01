@@ -33,12 +33,12 @@ jobs:
         steps:
             -
                 name: Checkout repository
-                uses: actions/checkout@v4
+                uses: actions/checkout@v5
 
             -
                 name: Get branch name
                 id: branch-name
-                uses: tj-actions/branch-names@v8
+                uses: tj-actions/branch-names@v9
 
 
             -

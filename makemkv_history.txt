@@ -1,3 +1,8 @@
+MakeMKV v1.18.2 (25.9.2025)
+
+    Improved handling for discs with mastering errors
+    Small improvements and bugfixes
+
 MakeMKV v1.18.1 (5.4.2025)
 
     Bugfix for 1.18.0
