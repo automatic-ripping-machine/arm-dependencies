@@ -1,8 +1,13 @@
 alembic==1.14.1
 apprise==1.7.6
 bcrypt==3.2.2 # Newer versions dont have Wheel
+beautifulsoup4==4.12.3
+certifi==2025.1.31
+cffi==1.17.0
+click==8.1.8
+charset-normalizer==3.4.1
 discid==1.2.0
-Flask==2.2.5 # broken
+Flask==2.3.3 # broken
 Flask-Cors==4.0.0
 Flask-Login==0.6.3
 Flask-Migrate==4.0.4
@@ -23,9 +28,9 @@ pydvdid==1.1
 PyYAML==6.0.2
 pyudev==0.24.3
 requests==2.32.3
-SQLAlchemy==2.0.22
+SQLAlchemy==2.0.40
 urllib3==2.3.0 # broken
 waitress==2.1.2
-Werkzeug==2.3.6
+Werkzeug==2.3.7
 WTForms==3.0.1
 xmltodict==0.13.0
