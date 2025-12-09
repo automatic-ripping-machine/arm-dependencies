@@ -91,7 +91,7 @@ jobs:
 
       - name: Create Pull Request
         if: env.skip == 'false' && env.branch_exists != 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: update-makemkv-${{ env.MAKEMKV_VERSION }}
           title: "[FEATURE] Update MakeMKV to ${{ env.MAKEMKV_VERSION }} from ${{ env.CURRENT_VERSION }}"
