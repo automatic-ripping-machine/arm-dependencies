@@ -1,4 +1,4 @@
-alembic==1.14.1
+alembic==1.18.0
 apprise==1.7.6
 bcrypt==3.2.2 # Newer versions dont have Wheel
 discid==1.2.0
