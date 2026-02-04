@@ -1,3 +1,10 @@
+MakeMKV v1.18.3 (25.1.2026)
+
+    Updated LibreDrive and AACS runtime
+    Small improvements and bugfixes
+    Notable bug fixes:
+        Reading certain MKV files as input was very slow
+
 MakeMKV v1.18.2 (25.9.2025)
 
     Improved handling for discs with mastering errors
