@@ -17,6 +17,11 @@ RUN groupadd -g 1000 arm \
 RUN groupadd -g 990 optical \
     && usermod -aG optical arm
 
+# Enable support for Fedora derivatives, which uses GID 11 for the cdrom group for optical drive permissions, whereas Ubuntu uses GID 24 for the same group name.
+RUN groupadd -g 11 cdrom_Fedora \
+   && usermod -aG cdrom_Fedora arm
+
+
 # set the default environment variables
 # UID and GID are not settable as of https://github.com/phusion/baseimage-docker/pull/86, as doing so would
 # break multi-account containers
