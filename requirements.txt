@@ -26,6 +26,6 @@ requests==2.32.3
 SQLAlchemy==2.0.19
 urllib3==2.3.0 # broken
 waitress==2.1.2
-Werkzeug==2.3.6
+Werkzeug==3.1.6
 WTForms==3.0.1
 xmltodict==0.13.0
