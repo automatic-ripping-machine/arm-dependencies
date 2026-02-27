@@ -1,6 +1,6 @@
 ###########################################################
 # base image, used for build stages and final images
-FROM phusion/baseimage:jammy-1.0.4 AS base
+FROM phusion/baseimage:jammy-1.0.5 AS base
 RUN mkdir /opt/arm
 WORKDIR /opt/arm
 
