@@ -100,9 +100,17 @@ jobs:
         if: env.skip == 'false' && env.pr_exists == 'false'
         run: |
           echo "${{ env.MAKEMKV_VERSION }}" > VERSION_MAKEMKV
-          cat <<EOF > makemkv_history.txt
-          ${{ env.VERSION_HISTORY }}
-          EOF
+
+          if [[ ! -f makemkv_history.txt ]]; then
+            touch makemkv_history.txt
+          fi
+
+          {
+            echo "${{ env.VERSION_HISTORY }}"
+            echo ""
+            cat makemkv_history.txt
+          } > makemkv_history.tmp
+          mv makemkv_history.tmp makemkv_history.txt
 
       - name: Create Pull Request
         if: env.skip == 'false' && env.pr_exists == 'false'
