@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Get latest MakeMKV version
         run: |
@@ -94,28 +96,33 @@ jobs:
             echo "pr_exists=false" >> $GITHUB_ENV
           fi
 
-      - name: Create new git branch with MakeMKV Version
+      - name: Update version files
         if: env.skip == 'false' && env.pr_exists == 'false'
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -B update-makemkv-${{ env.MAKEMKV_VERSION }}
-          echo ${{ env.MAKEMKV_VERSION }} > VERSION_MAKEMKV
-          cat <<EOF > makemkv_history.txt
-          ${{ env.VERSION_HISTORY }}
-          EOF
-          git add VERSION_MAKEMKV makemkv_history.txt
-          git commit -m "Update MakeMKV version to ${{ env.MAKEMKV_VERSION }}" --allow-empty
-          # force push so a stale/broken previous branch gets overwritten with correct content
-          git push --force origin "update-makemkv-${{ env.MAKEMKV_VERSION }}"
+          echo "${{ env.MAKEMKV_VERSION }}" > VERSION_MAKEMKV
+
+          if [[ ! -f makemkv_history.txt ]]; then
+            touch makemkv_history.txt
+          fi
+
+          {
+            echo "${{ env.VERSION_HISTORY }}"
+            echo ""
+            cat makemkv_history.txt
+          } > makemkv_history.tmp
+          mv makemkv_history.tmp makemkv_history.txt
 
       - name: Create Pull Request
         if: env.skip == 'false' && env.pr_exists == 'false'
         uses: peter-evans/create-pull-request@v8
         with:
           branch: update-makemkv-${{ env.MAKEMKV_VERSION }}
-          title: "[FEATURE] Update MakeMKV to ${{ env.MAKEMKV_VERSION }} from ${{ env.CURRENT_VERSION }}"
           base: main
+          add-paths: |
+            VERSION_MAKEMKV
+            makemkv_history.txt
+          commit-message: "Update MakeMKV version to ${{ env.MAKEMKV_VERSION }}"
+          title: "[FEATURE] Update MakeMKV to ${{ env.MAKEMKV_VERSION }} from ${{ env.CURRENT_VERSION }}"
           labels: MakeMKV
           body: |
             ## MakeMKV Update
