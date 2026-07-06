@@ -1,3 +1,10 @@
+MakeMKV v1.18.4 (15.6.2026)
+
+Small improvements and bugfixes
+Notable bug fixes:
+
+Fixed linux armhf binary crash on certain architectures
+
 MakeMKV v1.18.3 (25.1.2026)
 
     Updated LibreDrive and AACS runtime
