@@ -115,7 +115,6 @@ jobs:
             makemkv_history.txt
           commit-message: "Update MakeMKV version to ${{ env.MAKEMKV_VERSION }}"
           title: "[FEATURE] Update MakeMKV to ${{ env.MAKEMKV_VERSION }} from ${{ env.CURRENT_VERSION }}"
-          base: main
           labels: MakeMKV
           body: |
             ## MakeMKV Update
