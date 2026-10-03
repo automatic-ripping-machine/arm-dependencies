@@ -92,6 +92,16 @@ COPY ./scripts/install_mkv_hb_deps.sh /install_mkv_hb_deps.sh
 RUN chmod +x /install_mkv_hb_deps.sh && sleep 1 && \
     /install_mkv_hb_deps.sh
 
+# Add Intel's official GPU repository and install a matched VA-API/QSV 
+# stack (runtime + -dev headers). Jammy's default apt repos cap VA-API 
+# at 1.14, which causes QSV transcodes to fail at runtime on recent 
+# HandBrake builds (see automatic-ripping-machine issues #909, #1522, 
+# 1668). Must run BEFORE install_handbrake.sh so HandBrake's 
+# ./configure detects the updated headers at build time. 
+COPY ./scripts/install_intel_qsv_deps.sh /install_intel_qsv_deps.sh
+RUN chmod +x /install_intel_qsv_deps.sh && sleep 1 && \ 
+    /install_intel_qsv_deps.sh
+
 COPY ./scripts/install_handbrake.sh /install_handbrake.sh
 RUN chmod +x /install_handbrake.sh && sleep 1 && \
     /install_handbrake.sh
