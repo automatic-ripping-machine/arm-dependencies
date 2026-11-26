@@ -35,7 +35,12 @@
 #     step detects the updated libva-dev/libmfx-dev headers at build time.
 
 set -euo pipefail
-
+# Intel QSV/VA-API only exists on x86. The Intel repo publishes amd64/i386 only,
+# so on arm64/armv7 there is nothing to install.
+if [[ "$(dpkg --print-architecture)" != "amd64" ]]; then
+    echo "Architecture $(dpkg --print-architecture) is not amd64 - skipping Intel QSV/VA-API setup"
+    exit 0
+fi
 echo "Adding Intel GPU package repository (for QSV / VA-API support)..."
 
 apt-get update
